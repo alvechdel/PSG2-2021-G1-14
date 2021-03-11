@@ -267,7 +267,7 @@
       <roles>
         <role>developer</role>
       </roles>
-      <timezone>GMT</timezone>
+      <timezone>Europe/Madrid</timezone>
       <properties>
         <picUrl>https://imgur.com/PIHjJot</picUrl>
       </properties>
