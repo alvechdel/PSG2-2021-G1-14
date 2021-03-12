@@ -272,6 +272,22 @@
         <picUrl>https://imgur.com/PIHjJot</picUrl>
       </properties>
     </developer>
+
+    <developer>
+        <id>fervalnav</id>
+        <name>Fernando Valdes Navarro</name>
+        <email>fervalnav@alumn.us.es</email>
+        <url></url>
+        <organization>PSG2-2021-G1-14</organization>
+        <organizationUrl>http://www.example.com/PSG2-2021-G1-14</organizationUrl>
+        <roles>
+          <role>developer</role>
+        </roles>
+        <timezone>Europe/Madrid</timezone>
+        <properties>
+          <picUrl>https://imgur.com/xB7APVl</picUrl>
+        </properties>
+      </developer>
   </developers>
 
 </project>
