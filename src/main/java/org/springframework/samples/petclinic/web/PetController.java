@@ -21,6 +21,7 @@ import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.service.VetService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -149,6 +150,15 @@ public class PetController {
                     }
 			return "redirect:/owners/{ownerId}";
 		}
+	}
+
+	@GetMapping("/pets/{petId}/delete")
+	public String deletePet(@PathVariable("petId") int petId, @PathVariable("ownerId") int ownerId, Model map){
+		Pet pet=this.petService.findPetById(petId);
+		Owner owner=ownerService.findOwnerById(ownerId);
+		owner.removePet(pet);
+		this.petService.deletePet(pet);
+		return "redirect:/owners/{ownerId}";
 	}
 
 }

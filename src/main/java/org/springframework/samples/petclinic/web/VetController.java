@@ -15,14 +15,17 @@
  */
 package org.springframework.samples.petclinic.web;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.model.Vets;
 import org.springframework.samples.petclinic.service.VetService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.Map;
 
 /**
  * @author Juergen Hoeller
@@ -59,6 +62,13 @@ public class VetController {
 		Vets vets = new Vets();
 		vets.getVetList().addAll(this.vetService.findVets());
 		return vets;
+	}
+
+	@GetMapping("/vets/{vetId}/delete")
+	public String deleteVet(@PathVariable("vetId") int vetId, Model map){
+		Vet vet=this.vetService.findVetById(vetId);
+		this.vetService.deleteVet(vet);
+		return "redirect:/vets";
 	}
 
 }

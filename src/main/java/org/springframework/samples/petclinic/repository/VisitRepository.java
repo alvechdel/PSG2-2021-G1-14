@@ -44,4 +44,10 @@ public interface VisitRepository extends Repository<Visit, Integer> {
 
 	List<Visit> findByPetId(Integer petId);
 
+	/**
+	 * Delete a <code>Visit</code> from the data store
+	 * @param visit the <code>Visit</code> to delete
+	 */
+	void delete(Visit visit) throws DataAccessException;
+
 }
