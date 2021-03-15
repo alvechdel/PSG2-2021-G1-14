@@ -75,6 +75,9 @@ public class PetService {
                 petRepository.save(pet);                
 	}
 
+	public Visit findVisitById(int visitId){
+		return visitRepository.findById(visitId);
+	}
 
 	public Collection<Visit> findVisitsByPetId(int petId) {
 		return visitRepository.findByPetId(petId);
@@ -83,6 +86,11 @@ public class PetService {
 	@Transactional
 	public void deletePet(Pet pet) throws DataAccessException {
 		petRepository.delete(pet);
+	}
+	
+	public void deleteVisit(Visit visit) throws DataAccessException {
+		// visit.setPet(null);
+		visitRepository.delete(visit);
 	}	
 
 }

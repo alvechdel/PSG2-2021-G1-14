@@ -65,7 +65,7 @@ public class VetController {
 	}
 
 	@GetMapping("/vets/{vetId}/delete")
-	public String deleteVet(@PathVariable("vetId") int vetId, Model map){
+	public String deleteVet(@PathVariable("vetId") int vetId){
 		Vet vet=this.vetService.findVetById(vetId);
 		this.vetService.deleteVet(vet);
 		return "redirect:/vets";

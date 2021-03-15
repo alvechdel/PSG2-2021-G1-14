@@ -145,7 +145,7 @@ public class OwnerController {
 	}
 
 	@GetMapping("/owners/{ownerId}/delete")
-	public String deleteOwner(@PathVariable("ownerId") int ownerId, Model map){
+	public String deleteOwner(@PathVariable("ownerId") int ownerId){
 		Owner owner = this.ownerService.findOwnerById(ownerId);
 		owner.setUser(null); //Should I delete the user instead? I think so but all owners are using the same username at this point
 		this.ownerService.deleteOwner(owner);
