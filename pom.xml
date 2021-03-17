@@ -3,16 +3,16 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.springframework.samples</groupId>
-    <artifactId>spring-petclinic</artifactId>
-    <version>2.2.0.BUILD-SNAPSHOT</version>
+    <groupId>es.us.psg2</groupId>
+    <artifactId>spring-petclinic.psg2.2021-G1-14</artifactId>
+    <version>1.0.0</version>
 
-    <parent>
+ 	<parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.2.4.RELEASE</version>
     </parent>
-    <name>petclinic</name>
+    <name>PSG2-2021-G1-14 Petclinic</name>
 
     <properties>
 
@@ -319,6 +319,22 @@
             <timezone>Europe/Madrid</timezone>
             <properties>
                 <picUrl>https://imgur.com/a/9qKXVFb</picUrl>
+            </properties>
+        </developer>
+        
+        <developer>
+            <id>anacatcam</id>
+            <name>Ana Catalan Camacho</name>
+            <email>anacatcam@alumn.us.es</email>
+            <url>https://github.com/anacatcam</url>
+            <organization>PSG2-2021-G1-14</organization>
+            <organizationUrl>https://github.com/gii-is-psg2/PSG2-2021-G1-14.git</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>Europe/Madrid</timezone>
+            <properties>
+                <picUrl>https://imgur.com/BHoYn5X</picUrl>
             </properties>
         </developer>
 </developers>
