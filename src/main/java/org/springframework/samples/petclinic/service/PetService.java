@@ -19,12 +19,15 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.samples.petclinic.model.Book;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Visit;
+import org.springframework.samples.petclinic.repository.BookRepository;
 import org.springframework.samples.petclinic.repository.PetRepository;
 import org.springframework.samples.petclinic.repository.VisitRepository;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
+import org.springframework.samples.petclinic.service.exceptions.OverlappingDatesException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -41,13 +44,17 @@ public class PetService {
 	private PetRepository petRepository;
 	
 	private VisitRepository visitRepository;
+
+	private BookRepository bookRepository;
 	
 
 	@Autowired
 	public PetService(PetRepository petRepository,
-			VisitRepository visitRepository) {
+			VisitRepository visitRepository,
+			BookRepository bookRepository) {
 		this.petRepository = petRepository;
 		this.visitRepository = visitRepository;
+		this.bookRepository=bookRepository;
 	}
 
 	@Transactional(readOnly = true)
@@ -58,6 +65,12 @@ public class PetService {
 	@Transactional
 	public void saveVisit(Visit visit) throws DataAccessException {
 		visitRepository.save(visit);
+	}
+
+	@Transactional 
+	public void saveBook(Book book) throws DataAccessException, OverlappingDatesException {
+		if(book.getEndDate().isBefore(book.getStartDate())) throw new OverlappingDatesException();
+		else bookRepository.save(book);
 	}
 
 	@Transactional(readOnly = true)
