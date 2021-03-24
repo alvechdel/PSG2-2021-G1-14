@@ -27,7 +27,7 @@
 					<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
 					<span>Inicio</span>
 				</petclinic:menuItem>
-
+				
 				<petclinic:menuItem active="${name eq 'owners'}" url="/owners/find"
 					title="find owners">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -53,12 +53,12 @@
 
 			<ul class="nav navbar-nav navbar-right">
 				<sec:authorize access="!isAuthenticated()">
-					<li><a href="<c:url value="/login" />">Iniciar sesion</a></li>
+					<li><a href="<c:url value="/login" />">Iniciar sesi&Oacuten</a></li>
 					<li><a href="<c:url value="/users/new" />">Registrarse</a></li>
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span>�
+						data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span>
 							<strong><sec:authentication property="name" /></strong> <span
 							class="glyphicon glyphicon-chevron-down"></span>
 					</a>
@@ -77,7 +77,7 @@
 											</p>
 											<p class="text-left">
 												<a href="<c:url value="/logout" />"
-													class="btn btn-primary btn-block btn-sm">Cerrar sesion</a>
+													class="btn btn-primary btn-block btn-sm">Cerrar sesi&oacuten</a>
 											</p>
 										</div>
 									</div>
@@ -92,7 +92,7 @@
 											<p>
 												<a href="#" class="btn btn-primary btn-block">Mi perfil</a>
 												<a href="#" class="btn btn-danger btn-block">Cambiar
-													Contraseña</a>
+													Contrase&ntildea</a>
 											</p>
 										</div>
 									</div>

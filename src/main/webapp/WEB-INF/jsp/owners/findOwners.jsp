@@ -33,7 +33,7 @@
 
     <br/> 
     <sec:authorize access="hasAuthority('admin')">
-		<a class="btn btn-default" href='<spring:url value="/owners/new" htmlEscape="true"/>'>Add Owner</a>
+		<a class="btn btn-default" href='<spring:url value="/owners/new" htmlEscape="true"/>'>A&ntildeadir propietario</a>
 	</sec:authorize>
 	
 </petclinic:layout>

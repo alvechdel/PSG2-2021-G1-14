@@ -14,16 +14,16 @@
         </script>
     </jsp:attribute>
     <jsp:body>
-       <h2><c:if test="${book['new']}">New </c:if>Book</h2>
+       <h2><c:if test="${book['new']}">Nueva </c:if>Reserva</h2>
 
-        <b>Pet</b>
+        <b>Mascota</b>
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>Name</th>
-                <th>Birth Date</th>
-                <th>Type</th>
-                <th>Owner</th>
+                <th>Nombre</th>
+                <th>Fecha de nacimiento</th>
+                <th>Tipo</th>
+                <th>Propietario</th>
             </tr>
             </thead>
             <tr>
@@ -36,24 +36,24 @@
 
         <form:form modelAttribute="book" class="form-horizontal">
             <div class="form-group has-feedback">
-                <petclinic:inputField label="Start date" name="startDate"/>
-                <petclinic:inputField label="End date" name="endDate"/>
+                <petclinic:inputField label="Fecha de inicio" name="startDate"/>
+                <petclinic:inputField label="Fecha fin" name="endDate"/>
             </div>
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <input type="hidden" name="petId" value="${book.pet.id}"/>
-                    <button class="btn btn-default" type="submit">Add Book</button>
+                    <button class="btn btn-default" type="submit">A&ntildeadir reserva</button>
                 </div>
             </div>
         </form:form>
 
         <br/>
-        <b>Previous Books</b>
+        <b>Reservas anteriores</b>
         <table class="table table-striped">
             <tr>
-                <th>Start date</th>
-                <th>End date</th>
+                <th>Fecha de inicio</th>
+                <th>Fecha fin</th>
             </tr>
             <c:forEach var="book" items="${book.pet.books}">
                 <c:if test="${!book['new']}">
