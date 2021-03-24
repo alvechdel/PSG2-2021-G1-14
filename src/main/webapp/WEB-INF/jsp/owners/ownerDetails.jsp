@@ -41,7 +41,7 @@
     <br/>
     <br/>
     <br/>
-    <h2>Pets and Visits</h2>
+    <h2>Mascotas y Visitas</h2>
 
     <table class="table table-striped">
         <c:forEach var="pet" items="${owner.pets}">
@@ -49,11 +49,11 @@
             <tr>
                 <td valign="top">
                     <dl class="dl-horizontal">
-                        <dt>Name</dt>
+                        <dt>Nombre</dt>
                         <dd><c:out value="${pet.name}"/></dd>
-                        <dt>Birth Date</dt>
+                        <dt>Fecha de nacimiento</dt>
                         <dd><petclinic:localDate date="${pet.birthDate}" pattern="yyyy-MM-dd"/></dd>
-                        <dt>Type</dt>
+                        <dt>Tipo</dt>
                         <dd><c:out value="${pet.type.name}"/></dd>
                     </dl>
                 </td>
@@ -61,8 +61,8 @@
                     <table class="table-condensed">
                         <thead>
                         <tr>
-                            <th>Visit Date</th>
-                            <th>Description</th>
+                            <th>Fecha de visita</th>
+                            <th>Descripcion</th>
                         </tr>
                         </thead>
                         <c:forEach var="visit" items="${pet.visits}">
