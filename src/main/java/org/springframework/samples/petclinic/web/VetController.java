@@ -17,8 +17,8 @@ package org.springframework.samples.petclinic.web;
 
 import java.util.Map;
 import java.util.Set;
-
 import javax.validation.Valid;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Vet;
@@ -128,6 +128,13 @@ public class VetController {
 			this.vetService.saveVet(vet);
 			return "redirect:/vets/{vetId}";
 		}
+	}
+
+	@GetMapping("/vets/{vetId}/delete")
+	public String deleteVet(@PathVariable("vetId") int vetId){
+		Vet vet=this.vetService.findVetById(vetId);
+		this.vetService.deleteVet(vet);
+		return "redirect:/vets";
 	}
 
 }
