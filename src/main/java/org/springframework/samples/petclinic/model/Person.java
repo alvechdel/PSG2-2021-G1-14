@@ -29,11 +29,11 @@ public class Person extends BaseEntity {
 
 	@Column(name = "first_name")
 	@NotEmpty
-	protected String firstName;
+	private String firstName;
 
 	@Column(name = "last_name")
 	@NotEmpty
-	protected String lastName;
+	private String lastName;
 
 	public String getFirstName() {
 		return this.firstName;

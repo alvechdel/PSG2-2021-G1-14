@@ -15,13 +15,16 @@
  */
 package org.springframework.samples.petclinic.web;
 
+import java.lang.ProcessBuilder.Redirect;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Owner;
+import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.OwnerService;
 import org.springframework.samples.petclinic.service.VetService;
@@ -139,6 +142,14 @@ public class OwnerController {
 		ModelAndView mav = new ModelAndView("owners/ownerDetails");
 		mav.addObject(this.ownerService.findOwnerById(ownerId));
 		return mav;
+	}
+
+	@GetMapping("/owners/{ownerId}/delete")
+	public String deleteOwner(@PathVariable("ownerId") int ownerId){
+		Owner owner = this.ownerService.findOwnerById(ownerId);
+		owner.setUser(null); //Should I delete the user instead? I think so but all owners are using the same username at this point
+		this.ownerService.deleteOwner(owner);
+		return "redirect:/owners/";
 	}
 
 }
