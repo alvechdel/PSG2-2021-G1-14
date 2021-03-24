@@ -60,6 +60,10 @@ public class Vet extends Person {
 		this.specialties = specialties;
 	}
 
+	public void setSpecialties(Set<Specialty> specialties) {
+		this.specialties = specialties;
+	}
+
 	@XmlElement
 	public List<Specialty> getSpecialties() {
 		List<Specialty> sortedSpecs = new ArrayList<>(getSpecialtiesInternal());
