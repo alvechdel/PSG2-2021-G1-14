@@ -113,6 +113,32 @@
                         </tr>
                     </table>
                 </td>
+                <td valign="top">
+                    <table class="table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Books</th>
+                            </tr>
+                        </thead>
+                        <c:forEach var="book" items="${pet.books}">
+                            <tr>
+                                <td>Start date: <petclinic:localDate date="${book.startDate}" pattern="yyyy-MM-dd"/></td>
+                                <td>End date: <petclinic:localDate date="${book.endDate}" pattern="yyyy-MM-dd"/></td>
+                            </tr>
+                        </c:forEach>
+                        <tr>
+                            <td>
+                                <spring:url value="/owners/{ownerId}/pets/{petId}/books/new" var="bookUrl">
+                                    <spring:param name="ownerId" value="${owner.id}"/>
+                                    <spring:param name="petId" value="${pet.id}"/>
+                                </spring:url>
+                                <a href="${fn:escapeXml(bookUrl)}">Add Book</a>
+                            </td>
+                        </tr>
+                    </table>
+
+
+                </td>
             </tr>
 
         </c:forEach>
