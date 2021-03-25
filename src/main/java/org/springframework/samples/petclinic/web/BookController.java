@@ -54,7 +54,7 @@ public class BookController {
             try{
                 petService.saveBook(book);
             }catch(OverlappingDatesException ex){
-                result.rejectValue("endDate","overlap", "is earlier than start date");
+                result.rejectValue("endDate","overlap", "Es anterior a la fecha de inicio");
                 return "pets/createOrUpdateBookForm";
             }
             return "redirect:/owners/{ownerId}";
