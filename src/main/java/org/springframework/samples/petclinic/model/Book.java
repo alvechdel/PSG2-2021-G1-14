@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.FutureOrPresent;
 
 @Entity
 @Table(name="books")
@@ -16,10 +18,12 @@ public class Book extends BaseEntity {
 
     @Column(name="start_date")
     @DateTimeFormat(pattern = "yyyy/MM/dd")
+    @FutureOrPresent
 	private LocalDate startDate;
 
     @Column(name="end_date")
     @DateTimeFormat(pattern = "yyyy/MM/dd")
+    @Future
 	private LocalDate endDate;
 
     @ManyToOne
