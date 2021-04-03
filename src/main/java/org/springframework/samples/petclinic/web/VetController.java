@@ -15,14 +15,17 @@
  */
 package org.springframework.samples.petclinic.web;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 import javax.validation.Valid;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Specialty;
 import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.model.Vets;
+import org.springframework.samples.petclinic.service.SpecialtyService;
 import org.springframework.samples.petclinic.service.VetService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,10 +50,12 @@ public class VetController {
 	private static final String VIEWS_VET_CREATE_OR_UPDATE_FORM = "vets/createOrUpdateVetForm";
 
 	private final VetService vetService;
+	private final SpecialtyService specialtyService;
 
 	@Autowired
-	public VetController(VetService clinicService) {
+	public VetController(VetService clinicService, SpecialtyService specialtyService) {
 		this.vetService = clinicService;
+		this.specialtyService= specialtyService;
 	}
 	
 	@InitBinder
@@ -91,7 +96,9 @@ public class VetController {
 	@GetMapping(value = "/vets/new")
 	public String initCreationForm(Map<String, Object> model) {
 		Vet vet = new Vet();
+		Collection<Specialty> specialties= specialtyService.findSpecialties();
 		model.put("vet", vet);
+		model.put("specialties", specialties);
 		return VIEWS_VET_CREATE_OR_UPDATE_FORM;
 	}
 	
@@ -111,7 +118,9 @@ public class VetController {
 	@GetMapping(value = "/vets/{vetId}/edit")
 	public String initUpdateVetForm(@PathVariable("vetId") int vetId, Model model) {
 		Vet vet = this.vetService.findVetById(vetId);
+		Collection<Specialty> specialties= specialtyService.findSpecialties();
 		model.addAttribute(vet);
+		model.addAttribute("specialties", specialties);
 		return VIEWS_VET_CREATE_OR_UPDATE_FORM;
 	}
 	
@@ -122,8 +131,6 @@ public class VetController {
 			return VIEWS_VET_CREATE_OR_UPDATE_FORM;
 		}
 		else {
-			Vet vet1 = this.vetService.findVetById(vetId);
-			vet.setSpecialties(Set.copyOf(vet1.getSpecialties()));
 			vet.setId(vetId);
 			this.vetService.saveVet(vet);
 			return "redirect:/vets/{vetId}";

@@ -14,6 +14,16 @@
         <div class="form-group has-feedback">
             <petclinic:inputField label="Nombre" name="firstName"/>
             <petclinic:inputField label="Apellidos" name="lastName"/>
+            <div class="control-group">
+                <label class="col-sm-2 control-label" style="padding-right:25px;" for="specialties">Especialidades</label>
+                <div class="col-sm-10">
+                    <select class="form-control"  name="specialties" size="${specialties.size()}" multiple>
+                        <c:forEach items="${specialties}" var="specialty">
+                            <option value="${specialty.id}"><c:out value="${specialty}"></c:out></option>
+                        </c:forEach>
+                    </select>
+                </div>  
+            </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
