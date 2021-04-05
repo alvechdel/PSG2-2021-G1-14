@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Book;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.service.PetService;
+import org.springframework.samples.petclinic.service.exceptions.OverlappingBooksException;
 import org.springframework.samples.petclinic.service.exceptions.OverlappingDatesException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -53,10 +54,15 @@ public class BookController {
         }else {
             try{
                 petService.saveBook(book);
-            }catch(OverlappingDatesException ex){
+            }catch(OverlappingDatesException ex ){
                 result.rejectValue("endDate","overlap", "Es anterior a la fecha de inicio");
                 return "pets/createOrUpdateBookForm";
+            }catch(OverlappingBooksException ex1){
+                result.rejectValue("startDate","overlap", "Esta mascota ya tiene una reserva para estas fechas");
+                return "pets/createOrUpdateBookForm";
             }
+
+            
             return "redirect:/owners/{ownerId}";
         }
     }
