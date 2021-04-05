@@ -62,6 +62,6 @@ INSERT INTO visits(id,pet_id,visit_date,description) VALUES (2, 8, '2013-01-02',
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (3, 8, '2013-01-03', 'neutered');
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (4, 7, '2013-01-04', 'spayed');
 
-INSERT INTO books(id, pet_id, start_date, end_date) VALUES (1, 1, '2013-02-01', '2013-02-03');
-INSERT INTO books(id, pet_id, start_date, end_date) VALUES (2, 1, '2013-03-01', '2013-03-03');
-INSERT INTO books(id, pet_id, start_date, end_date) VALUES (3, 2, '2013-02-01', '2013-02-28');
+INSERT INTO books(id, pet_id, start_date, end_date) VALUES (1, 1, '2030-02-01', '2030-02-03');
+INSERT INTO books(id, pet_id, start_date, end_date) VALUES (2, 1, '2030-03-01', '2030-03-03');
+INSERT INTO books(id, pet_id, start_date, end_date) VALUES (3, 2, '2030-02-01', '2030-02-28');
