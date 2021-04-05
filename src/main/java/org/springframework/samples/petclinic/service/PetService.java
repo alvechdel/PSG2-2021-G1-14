@@ -28,6 +28,7 @@ import org.springframework.samples.petclinic.repository.BookRepository;
 import org.springframework.samples.petclinic.repository.PetRepository;
 import org.springframework.samples.petclinic.repository.VisitRepository;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
+import org.springframework.samples.petclinic.service.exceptions.OverlappingBooksException;
 import org.springframework.samples.petclinic.service.exceptions.OverlappingDatesException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -68,11 +69,27 @@ public class PetService {
 		visitRepository.save(visit);
 	}
 
-	@Transactional 
-	public void saveBook(Book book) throws DataAccessException, OverlappingDatesException {
-		if(book.getEndDate().isBefore(book.getStartDate())) throw new OverlappingDatesException();
-		else bookRepository.save(book);
+	@Transactional
+	public void saveBook(Book book) throws DataAccessException, OverlappingDatesException, OverlappingBooksException {
+		this.OverlappingBooks(book);
+		this.OverlappingDates(book);
+		bookRepository.save(book);
 	}
+
+	@Transactional(rollbackFor = OverlappingDatesException.class, readOnly = true)
+	public void OverlappingDates(Book book) throws OverlappingDatesException{
+		if(book.getEndDate().isBefore(book.getStartDate())) {
+			throw new OverlappingDatesException();
+		}
+	}
+
+	@Transactional(rollbackFor = OverlappingBooksException.class, readOnly=true)
+	public void OverlappingBooks(Book book) throws OverlappingBooksException{
+		if(bookRepository.findOverlappingBooks(book.getPet().getId(), book.getStartDate(), book.getEndDate())!=0){
+			throw new OverlappingBooksException();
+		}
+	}
+
 
 	@Transactional(readOnly = true)
 	public Pet findPetById(int id) throws DataAccessException {
