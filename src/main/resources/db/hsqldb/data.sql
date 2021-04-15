@@ -65,3 +65,5 @@ INSERT INTO visits(id,pet_id,visit_date,description) VALUES (4, 7, '2013-01-04',
 INSERT INTO books(id, pet_id, start_date, end_date) VALUES (1, 1, '2030-02-01', '2030-02-03');
 INSERT INTO books(id, pet_id, start_date, end_date) VALUES (2, 1, '2030-03-01', '2030-03-03');
 INSERT INTO books(id, pet_id, start_date, end_date) VALUES (3, 2, '2030-02-01', '2030-02-28');
+
+INSERT INTO causes(id,name,active_status,budget,description,organization) VALUES (1,'Prueba A',true,1500.,'d ejemplo','o ejemplo')
