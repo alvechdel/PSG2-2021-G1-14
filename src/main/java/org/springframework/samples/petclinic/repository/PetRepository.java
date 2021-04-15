@@ -61,4 +61,7 @@ public interface PetRepository extends Repository<Pet, Integer> {
 	 */
 	void delete(Pet pet) throws DataAccessException;
 
+	@Query("SELECT p FROM Pet p WHERE p.adoption=true")
+	List<Pet> findAvailableAdoption();
+
 }

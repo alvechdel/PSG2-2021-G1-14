@@ -65,6 +65,12 @@ public class Pet extends NamedEntity {
 	private Set<Book> books;
 
 
+	private boolean adoption;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="pet", fetch=FetchType.EAGER)
+	private Set<Request> requests;
+
+
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
 	}
@@ -133,4 +139,31 @@ public class Pet extends NamedEntity {
 		book.setPet(this);
 	}
 
+	public boolean isAdoption() {
+		return adoption;
+	}
+
+	public void setAdoption(boolean adoption) {
+		this.adoption = adoption;
+	}
+
+	protected Set<Request> getRequestsInternal() {
+		if (this.requests == null) {
+			this.requests = new HashSet<>();
+		}
+		return this.requests;
+	}
+
+	public List<Request> getRequest() {
+		List<Request> sortedRequest = new ArrayList<>(getRequestsInternal());
+		PropertyComparator.sort(sortedRequest, new MutableSortDefinition("date", false, false));
+		return Collections.unmodifiableList(sortedRequest);
+	}
+
+	protected void setRequestInternal(Set<Request> requests) {
+		this.requests = requests;
+	}
+
+
+	
 }

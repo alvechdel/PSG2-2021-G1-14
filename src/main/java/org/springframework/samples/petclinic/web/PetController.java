@@ -31,6 +31,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.BeanUtils;
@@ -107,6 +109,7 @@ public class PetController {
 		else {
                     try{
                     	owner.addPet(pet);
+						pet.setAdoption(false);
                     	this.petService.savePet(pet);
                     }catch(DuplicatedPetNameException ex){
                         result.rejectValue("name", "duplicate", "already exists");
@@ -141,7 +144,7 @@ public class PetController {
 		}
 		else {
                         Pet petToUpdate=this.petService.findPetById(petId);
-			BeanUtils.copyProperties(pet, petToUpdate, "id","owner","visits");                                                                                  
+			BeanUtils.copyProperties(pet, petToUpdate, "id","owner","visits","adoption", "requests");                                                                                  
                     try {                    
                         this.petService.savePet(petToUpdate);                    
                     } catch (DuplicatedPetNameException ex) {
@@ -168,6 +171,13 @@ public class PetController {
 		this.petService.deleteVisit(visit);
 		return "redirect:/owners/{ownerId}";
 		
+	}
+
+	@GetMapping(value="/pets/adoptions")
+	public String showAvailableAdoptionPets(Map<String, Object> model) {
+		Collection<Pet> pets=petService.findAvalaibleAdoption();
+		model.put("pets", pets);
+		return "pets/adoptionsList";
 	}
 
 }
