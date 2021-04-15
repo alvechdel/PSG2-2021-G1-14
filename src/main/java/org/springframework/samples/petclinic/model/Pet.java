@@ -164,6 +164,11 @@ public class Pet extends NamedEntity {
 		this.requests = requests;
 	}
 
+	public void addRequest(Request request) {
+		getRequestsInternal().add(request);
+		request.setPet(this);
+	}
+
 
 	
 }

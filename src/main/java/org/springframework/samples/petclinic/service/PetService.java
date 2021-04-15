@@ -23,9 +23,11 @@ import org.springframework.samples.petclinic.model.Book;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
+import org.springframework.samples.petclinic.model.Request;
 import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.repository.BookRepository;
 import org.springframework.samples.petclinic.repository.PetRepository;
+import org.springframework.samples.petclinic.repository.RequestRepository;
 import org.springframework.samples.petclinic.repository.VisitRepository;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
 import org.springframework.samples.petclinic.service.exceptions.OverlappingBooksException;
@@ -48,15 +50,19 @@ public class PetService {
 	private VisitRepository visitRepository;
 
 	private BookRepository bookRepository;
+
+	private RequestRepository requestRepository;
 	
 
 	@Autowired
 	public PetService(PetRepository petRepository,
 			VisitRepository visitRepository,
-			BookRepository bookRepository) {
+			BookRepository bookRepository,
+			RequestRepository requestRepository) {
 		this.petRepository = petRepository;
 		this.visitRepository = visitRepository;
 		this.bookRepository=bookRepository;
+		this.requestRepository=requestRepository;
 	}
 
 	@Transactional(readOnly = true)
@@ -74,6 +80,11 @@ public class PetService {
 		this.OverlappingBooks(book);
 		this.OverlappingDates(book);
 		bookRepository.save(book);
+	}
+
+	@Transactional
+	public void saveRequest(Request request) throws DataAccessException {
+		requestRepository.save(request);
 	}
 
 	@Transactional(rollbackFor = OverlappingDatesException.class, readOnly = true)
