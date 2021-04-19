@@ -66,4 +66,10 @@ INSERT INTO books(id, pet_id, start_date, end_date) VALUES (1, 1, '2030-02-01', 
 INSERT INTO books(id, pet_id, start_date, end_date) VALUES (2, 1, '2030-03-01', '2030-03-03');
 INSERT INTO books(id, pet_id, start_date, end_date) VALUES (3, 2, '2030-02-01', '2030-02-28');
 
-INSERT INTO causes(id,name,active_status,budget,description,organization) VALUES (1,'Prueba A',true,1500.,'d ejemplo','o ejemplo')
+INSERT INTO causes(id,name,active_status,budget,description,organization) VALUES (1,'Prueba A',true,1500.,'d ejemplo', 'Unicef');
+INSERT INTO causes(id,name,active_status,budget,description,organization) VALUES (2,'Prueba B',true, 30000,'d ejemplo', 'Wikimedia');
+
+INSERT INTO donations(id, amount, donation_date , is_anonymous , message ,  cause_id) VALUES (1, 123452.27, parsedatetime(LOCALTIMESTAMP(0), 'yyyy-MM-dd HH:mm'), false, 'Dono de prueba', 1);
+INSERT INTO donations(id, amount, donation_date , is_anonymous , message ,  cause_id) VALUES (2, 24.74, parsedatetime(LOCALTIMESTAMP(0), 'yyyy-MM-dd HH:mm'), false, 'Dono de prueba 2', 1);
+INSERT INTO donations(id, amount, donation_date , is_anonymous , message ,  cause_id) VALUES (3, 32503.1, parsedatetime(LOCALTIMESTAMP(0), 'yyyy-MM-dd HH:mm'), false, 'Dono de prueba 2', 2);
+INSERT INTO donations(id, amount, donation_date , is_anonymous , message ,  cause_id) VALUES (4, 24.74, parsedatetime(LOCALTIMESTAMP(0), 'yyyy-MM-dd HH:mm'), false, 'Dono de prueba 2', 2);
