@@ -5,5 +5,5 @@
 | 11/04/2021    |               | :neutral_face: |                |                |                |                
 | 14/04/2021    |     :smiley:  |                |                |                |                |                
 | 15/04/2021    |               |                |                | :neutral_face: | :neutral_face: |                
-| Day 4         |               |                |                |                |                |                
+| 19/04/2021    |               |                |                |                | :neutral_face: |                
 ...
