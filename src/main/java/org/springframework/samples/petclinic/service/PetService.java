@@ -30,6 +30,7 @@ import org.springframework.samples.petclinic.repository.PetRepository;
 import org.springframework.samples.petclinic.repository.RequestRepository;
 import org.springframework.samples.petclinic.repository.VisitRepository;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
+import org.springframework.samples.petclinic.service.exceptions.DuplicatedRequestException;
 import org.springframework.samples.petclinic.service.exceptions.OverlappingBooksException;
 import org.springframework.samples.petclinic.service.exceptions.OverlappingDatesException;
 import org.springframework.stereotype.Service;
@@ -83,8 +84,9 @@ public class PetService {
 	}
 
 	@Transactional
-	public void saveRequest(Request request) throws DataAccessException {
-		requestRepository.save(request);
+	public void saveRequest(Request request) throws DuplicatedRequestException {
+		if(requestRepository.validateDuplicateRequest(request.getPet(), request.getOwner())!=0) throw new DuplicatedRequestException();
+		else requestRepository.save(request);
 	}
 
 	@Transactional(rollbackFor = OverlappingDatesException.class, readOnly = true)
@@ -140,5 +142,20 @@ public class PetService {
 	public Collection<Pet> findAvalaibleAdoption(){
 		return petRepository.findAvailableAdoption();
 	}
+
+	@Transactional(readOnly=true)
+	public Collection<Request> findRequestByOwner(Integer ownerId){
+		return requestRepository.findByOwnerId(ownerId);
+	}
+
+	@Transactional
+    public void acceptRequest(Integer requestId) {
+		Request r=requestRepository.findById(requestId);
+		r.setAccepted(true);
+		Pet p =r.getPet();
+		p.setOwner(r.getOwner());
+		petRepository.save(p);
+		requestRepository.save(r);
+    }
 
 }

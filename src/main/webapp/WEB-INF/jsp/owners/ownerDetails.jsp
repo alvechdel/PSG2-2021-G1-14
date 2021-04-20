@@ -43,6 +43,11 @@
     </spring:url>
     <a href="${fn:escapeXml(addUrl)}" class="btn btn-default">A&ntildeadir mascota</a>
 
+    <spring:url value="{ownerId}/requests" var="requestsUrl">
+    <spring:param name="ownerId" value="${owner.id}"/>
+    </spring:url>
+    <a href="${fn:escapeXml(requestsUrl)}" class="btn btn-default">Ver solicitudes</a>
+
     <br/>
     <br/>
     <br/>

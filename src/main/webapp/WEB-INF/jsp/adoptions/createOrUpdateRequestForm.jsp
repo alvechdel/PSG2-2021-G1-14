@@ -42,8 +42,7 @@
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <input type="hidden" name="petId" value="${request.pet.id}"/>
-                    <input type="hidden" name="date" value="${request.date}"/>
+                    <input type="hidden" name="pet" value="${request.pet.id}"/>
                     <input type="hidden" name="owner" value="${request.owner.id}">
                     <button class="btn btn-default" type="submit">A&ntildeadir petici&oacuten</button>
                 </div>

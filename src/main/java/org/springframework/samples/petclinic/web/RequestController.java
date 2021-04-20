@@ -14,6 +14,7 @@ import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.service.OwnerService;
 import org.springframework.samples.petclinic.service.PetService;
 import org.springframework.samples.petclinic.service.UserService;
+import org.springframework.samples.petclinic.service.exceptions.DuplicatedRequestException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -44,6 +45,19 @@ public class RequestController {
 		return "adoptions/adoptionsList";
 	}
 
+    @GetMapping(value="/owners/{ownerId}/requests")
+    public String showRequestByOwner(@PathVariable("ownerId") int ownerId, Map<String, Object> model) {
+        Collection<Request> requests=petService.findRequestByOwner(ownerId);
+        model.put("requests", requests);
+        return "adoptions/requestList";
+    }
+
+    @PostMapping(value="/request/accept")
+    public String acceptRequest(Integer requestId, Map<String, Object> model){
+        petService.acceptRequest(requestId);
+        return "redirect:/owners/find";
+    }
+
     @InitBinder
     public void setAllowedFields(WebDataBinder dataBinder) {
         dataBinder.setDisallowedFields("id");
@@ -55,7 +69,6 @@ public class RequestController {
         Owner owner=ownerService.findOwnerByUsername(user.getUsername());
         Pet pet=this.petService.findPetById(petId);
         Request request=new Request();
-        request.setDate(LocalDate.now());
         owner.addRequest(request);
         pet.addRequest(request);
         model.put("request", request);
@@ -67,7 +80,14 @@ public class RequestController {
         if(result.hasErrors()) {
             return "adoptions/createOrUpdateRequestForm";
         }else {
-            petService.saveRequest(request);
+            try{
+                request.setDate(LocalDate.now());
+                petService.saveRequest(request);
+            }catch (DuplicatedRequestException ex){
+                result.rejectValue("comment","Duplicated", "No puedes realizar dos solicitudes de adopcion de una misma mascota");
+                return "adoptions/createOrUpdateRequestForm";
+            }
+            
             return "redirect:/adoptions";
         }
     }
