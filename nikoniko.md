@@ -6,5 +6,5 @@
 | 14/04/2021    |     :smiley:  |                |                |                |                |                
 | 15/04/2021    |               |                |                | :neutral_face: | :neutral_face: |    
 | 18/04/2021    |               | :neutral_face: |                |                |                |                  
-| 19/04/2021    |               | :worried:      |                |                | :neutral_face: |                
+| 19/04/2021    |               | :worried:      |                | :worried:      | :neutral_face: |                
 ...
