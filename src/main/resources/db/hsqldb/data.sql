@@ -71,8 +71,8 @@ INSERT INTO pets(id,name,birth_date,type_id,owner_id, adoption) VALUES (7, 'Sama
 INSERT INTO pets(id,name,birth_date,type_id,owner_id, adoption) VALUES (8, 'Max', '2012-09-04', 1, 6, false);
 INSERT INTO pets(id,name,birth_date,type_id,owner_id, adoption) VALUES (9, 'Lucky', '2011-08-06', 5, 7, false);
 INSERT INTO pets(id,name,birth_date,type_id,owner_id, adoption) VALUES (10, 'Mulligan', '2007-02-24', 2, 8, false);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id, adoption) VALUES (11, 'Freddy', '2010-03-09', 5, 9, false);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id, adoption) VALUES (12, 'Lucky', '2010-06-24', 2, 10, false);
+INSERT INTO pets(id,name,birth_date,type_id,owner_id, adoption) VALUES (11, 'Freddy', '2010-03-09', 5, 9, true);
+INSERT INTO pets(id,name,birth_date,type_id,owner_id, adoption) VALUES (12, 'Lucky', '2010-06-24', 2, 10, true);
 INSERT INTO pets(id,name,birth_date,type_id,owner_id, adoption) VALUES (13, 'Sly', '2012-06-08', 1, 10, true);
 
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (1, 7, '2013-01-01', 'rabies shot');
@@ -83,3 +83,7 @@ INSERT INTO visits(id,pet_id,visit_date,description) VALUES (4, 7, '2013-01-04',
 INSERT INTO books(id, pet_id, start_date, end_date) VALUES (1, 1, '2030-02-01', '2030-02-03');
 INSERT INTO books(id, pet_id, start_date, end_date) VALUES (2, 1, '2030-03-01', '2030-03-03');
 INSERT INTO books(id, pet_id, start_date, end_date) VALUES (3, 2, '2030-02-01', '2030-02-28');
+
+INSERT INTO requests(id, pet_id, owner_id, accepted, date, comment) VALUES (1, 13, 1, false, '2030-02-28', 'Me gustaria tener otra mascota para acompañar a la mia');
+INSERT INTO requests(id, pet_id, owner_id, accepted, date,comment) VALUES (2, 12, 2, false, '2030-02-28', 'Me gustan mucho los animales');
+INSERT INTO requests(id, pet_id, owner_id, accepted, date,comment) VALUES (3, 13, 3, false, '2030-02-28', 'Me gustaria adoptar su mascota');

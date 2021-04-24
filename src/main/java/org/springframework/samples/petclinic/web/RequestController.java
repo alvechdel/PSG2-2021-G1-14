@@ -47,15 +47,15 @@ public class RequestController {
 
     @GetMapping(value="/owners/{ownerId}/requests")
     public String showRequestByOwner(@PathVariable("ownerId") int ownerId, Map<String, Object> model) {
-        Collection<Request> requests=petService.findRequestByOwner(ownerId);
+        Collection<Request> requests=petService.findRequestByOwnerOfPet( ownerService.findOwnerById(ownerId));
         model.put("requests", requests);
         return "adoptions/requestList";
     }
-
+    
     @PostMapping(value="/request/accept")
-    public String acceptRequest(Integer requestId, Map<String, Object> model){
+    public String acceptRequest(Integer requestId){
         petService.acceptRequest(requestId);
-        return "redirect:/owners/find";
+        return "redirect:/adoptions";
     }
 
     @InitBinder

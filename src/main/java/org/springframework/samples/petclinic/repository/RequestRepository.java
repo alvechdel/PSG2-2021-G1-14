@@ -17,8 +17,9 @@ public interface RequestRepository  extends Repository<Request, Integer>{
 
     @Query("SELECT count(*) FROM Request r WHERE r.owner=:owner AND  r.pet=:pet")
     Integer validateDuplicateRequest(@Param("pet") Pet pet, @Param("owner") Owner owner);
-
-    List<Request> findByOwnerId(Integer ownerId);
+    
+    @Query("SELECT r FROM Request r WHERE r.pet.owner=:owner ")
+    List<Request> findByOwnerOfPet(@Param("owner") Owner owner);
 
     Request findById(Integer id);
 }

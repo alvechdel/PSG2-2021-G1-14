@@ -25,7 +25,8 @@
                     <td><petclinic:localDate date="${request.date}" pattern="yyyy-MM-dd"/></td>
                     <td><c:out value="${request.comment}"></c:out></td>
                     <td>
-                        <form action="/request/accept">
+                        <form action="/request/accept" method="post">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             <input type="hidden" name="requestId" value='<c:out value="${request.id}"/>'>
                             <button class="btn btn-default" type="submit">Aceptar Solicitud</button>
                         </form>

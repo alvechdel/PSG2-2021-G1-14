@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import java.lang.ProcessBuilder.Redirect;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -171,6 +172,12 @@ public class PetController {
 		this.petService.deleteVisit(visit);
 		return "redirect:/owners/{ownerId}";
 		
+	}
+
+	@PostMapping("/pets/{petId}/adopt")
+	public String putUpForAdoption(@PathVariable("ownerId") int ownerId, @PathVariable("petId") int petId) {
+		petService.putUpForAdoption(petService.findPetById(petId));
+		return "redirect:/owners/{ownerId}";
 	}
 
 

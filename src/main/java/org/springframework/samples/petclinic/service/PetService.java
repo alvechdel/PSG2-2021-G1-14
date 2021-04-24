@@ -20,6 +20,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Book;
+import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
@@ -132,6 +133,12 @@ public class PetService {
 	public void deletePet(Pet pet) throws DataAccessException {
 		petRepository.delete(pet);
 	}
+
+	@Transactional
+	public void putUpForAdoption(Pet pet) {
+		pet.setAdoption(true);
+		petRepository.save(pet);
+	}
 	
 	@Transactional
 	public void deleteVisit(Visit visit) throws DataAccessException {
@@ -144,8 +151,8 @@ public class PetService {
 	}
 
 	@Transactional(readOnly=true)
-	public Collection<Request> findRequestByOwner(Integer ownerId){
-		return requestRepository.findByOwnerId(ownerId);
+	public Collection<Request> findRequestByOwnerOfPet(Owner owner){
+		return requestRepository.findByOwnerOfPet(owner);
 	}
 
 	@Transactional
