@@ -68,7 +68,7 @@
 									<div class="row">
 										<div class="col-lg-4">
 											<p class="text-center">
-												<span class="glyphicon glyphicon-user icon-size"></span>
+												<span class="glyphicon glyphicon-user icon-size" style="font-size: 50px;"></span>
 											</p>
 										</div>
 										<div class="col-lg-8">

@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.service;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class CauseService {
 	
 	@Transactional
 	public void save(Cause cause) {
-		if(cause.getTotalAmount().compareTo(cause.getBudget())==1){
+		if(cause.getTotalAmount().compareTo(BigDecimal.valueOf(cause.getBudget()))==1){
 			cause.setActiveStatus(false);
 		}
 		causeRepo.save(cause);

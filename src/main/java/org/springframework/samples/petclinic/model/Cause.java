@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.model;
 
+import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -38,8 +39,8 @@ public class Cause extends NamedEntity{
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="cause")
 	private Set<Donation> donations;
 
-	public Double getTotalAmount(){
-		return donations.stream().mapToDouble(x->x.getAmount().setScale(2, RoundingMode.HALF_DOWN).doubleValue()).sum();
+	public BigDecimal getTotalAmount(){
+		return donations.stream().map(x->x.getAmount().setScale(2, RoundingMode.HALF_DOWN)).reduce(BigDecimal.ZERO, BigDecimal::add);
 	}
 	public String getDescription() {
 		return description;
