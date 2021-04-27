@@ -1,15 +1,19 @@
 package org.springframework.samples.petclinic.web;
 
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Cause;
 import org.springframework.samples.petclinic.model.Donation;
+import org.springframework.samples.petclinic.model.Owner;
+import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.service.CauseService;
 import org.springframework.samples.petclinic.service.DonationService;
+import org.springframework.samples.petclinic.service.OwnerService;
+import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -24,23 +28,38 @@ public class CauseController {
 
 	private static final String VIEW_CREATE_CAUSE="causes/createCause";
 
-	private static final String VIEW_CREATE_DONATION = "causes/createDonation";
+	private static final String VIEW_LIST_CAUSE="causes/causeList";
 
-	private CauseService causeService;
+	private static final String VIEW_CREATE_DONATION = "donations/createDonation";
 
-	private DonationService donationService;
+	private final CauseService causeService;
+
+	private final DonationService donationService;
+
+	private final UserService userService;
+
+	private final OwnerService ownerService;
 
 	@Autowired
-	public CauseController(CauseService causeService, DonationService donationService){
+	public CauseController(CauseService causeService, DonationService donationService, UserService userService, OwnerService ownerService){
 		this.causeService=causeService;
 		this.donationService=donationService;
+		this.userService=userService;
+		this.ownerService=ownerService;
 	}
 	
 	@GetMapping()
-	public String causeList(ModelMap modelMap) {
-		Iterable<Cause> causes = causeService.findAll();
+	public String causeActiveList(ModelMap modelMap) {
+		List<Cause> causes = causeService.findCauseByActiveStatus(true);
 		modelMap.addAttribute("causes",causes);
-		return "causes/causeList";
+		return VIEW_LIST_CAUSE;
+	}
+
+	@GetMapping(path="/inactive")
+	public String causeInactiveList(ModelMap modelMap) {
+		List<Cause> causes = causeService.findCauseByActiveStatus(false);
+		modelMap.addAttribute("causes",causes);
+		return VIEW_LIST_CAUSE;
 	}
 
 	
@@ -95,7 +114,9 @@ public class CauseController {
 		}else {
 			Cause cause = this.causeService.findCauseById(causeId);
 			donation.setCause(cause);
-//			cause.addDonation(donation);
+			User user=userService.getLoggedUser();
+			Owner owner=ownerService.findOwnerByUsername(user.getUsername());
+			donation.setAuthor(owner.getFirstName() + " " + owner.getLastName());
 			donationService.save(donation);
 			causeService.save(cause);
 			return "redirect:/causes";

@@ -13,7 +13,6 @@
 		<form:form modelAttribute="donation" class="form-horizontal" id="form-donation" action="${saveDonation}">
 		
 			<div class="form-group has-feedback">	
-				<petclinic:inputField label="Nombre" name="name"/>
             	<petclinic:inputField label="Mensaje"  name="message"/>
         				<label class="col-sm-2 control-label" style="padding-right:25px;" for="amount">Cantidad</label>
         				<div class="col-sm-10">
@@ -33,4 +32,4 @@
 
 
 
-	</petclinic:layout>
+</petclinic:layout>

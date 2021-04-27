@@ -4,8 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <petclinic:layout pageName="detailsCause">
 
@@ -57,11 +56,15 @@
         </tr>
     </table>
 
+    <c:if test="${cause.activeStatus eq true}">
+        <sec:authorize access="hasAuthority('owner')">
+            <spring:url value="/causes/{causeId}/newDonation" var="addUrl">
+                <spring:param name="causeId" value="${cause.id}"/>
+            </spring:url>
+            <a href="${fn:escapeXml(addUrl)}" class="btn btn-default">A&ntildeadir donaci&oacuten</a>
+        </sec:authorize>
+    </c:if>
 
-    <spring:url value="/causes/{causeId}/newDonation" var="addUrl">
-        <spring:param name="causeId" value="${cause.id}"/>
-    </spring:url>
-    <a href="${fn:escapeXml(addUrl)}" class="btn btn-default">A&ntildeadir donacion</a>
   	<spring:url value="/causes" var="back"/>
     <a href="${fn:escapeXml(back)}" class="btn btn-default">Atr&aacutes</a>
     <br/>
@@ -76,7 +79,7 @@
                 <td valign="top">
                     <dl class="dl-horizontal">
                     	<dt>Cliente</dt>
-                    	<dd><c:out value="${donation.name }"/></dd>
+                    	<dd><c:out value="${donation.author}"/></dd>
                         <dt>Cantidad</dt>
                         <dd><c:out value="${donation.amount}"/></dd>
                         <dt>Fecha de la donaci&oacuten</dt>

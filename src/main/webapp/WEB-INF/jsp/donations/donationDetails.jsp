@@ -10,7 +10,7 @@
 	<table id="donationTable" class="table table-striped">
 		<tr>
 			<th>Cliente</th>
-			<td><c:out value="${donation.name}"></c:out></td>
+			<td><c:out value="${donation.author}"></c:out></td>
 		<tr>
 			<th>Mensaje</th>
 			<td><c:out value="${donation.message}"></c:out></td>
@@ -22,10 +22,6 @@
 		<tr>
 			<th>Fecha de donaci&oacuten</th>
 			<td><c:out value="${donation.donationDate}"></c:out></td>
-		</tr>
-		<tr>
-			<th>Causa de la donaci&oacuten</th>
-			<td><c:out value="${donation.cause.name}"></c:out></td>
 		</tr>
 	</table>
 	<spring:url value="/causes/{causeId}" var="back">

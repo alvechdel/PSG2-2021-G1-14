@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.model;
 
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -21,7 +22,6 @@ import org.springframework.beans.support.PropertyComparator;
 @Table(name="causes")
 public class Cause extends NamedEntity{
 	
-	@NotNull
 	@NotBlank
 	private String description;
 	
@@ -29,7 +29,6 @@ public class Cause extends NamedEntity{
 	@NotNull
 	private Double budget;
 	
-	@NotNull
 	@NotBlank
 	private String organization;
 	
@@ -39,7 +38,9 @@ public class Cause extends NamedEntity{
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="cause")
 	private Set<Donation> donations;
 
-
+	public Double getTotalAmount(){
+		return donations.stream().mapToDouble(x->x.getAmount().setScale(2, RoundingMode.HALF_DOWN).doubleValue()).sum();
+	}
 	public String getDescription() {
 		return description;
 	}

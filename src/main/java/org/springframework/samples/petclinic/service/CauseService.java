@@ -2,6 +2,8 @@ package org.springframework.samples.petclinic.service;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Cause;
@@ -19,12 +21,20 @@ public class CauseService {
 	}
 
 	@Transactional(readOnly = true)
+	public List<Cause> findCauseByActiveStatus(Boolean status) throws DataAccessException {
+		return causeRepo.findByActiveStatus(status);
+	}
+
+	@Transactional(readOnly = true)
 	public Cause findCauseById(int id) throws DataAccessException {
 		return causeRepo.findById(id);
 	}
 	
 	@Transactional
 	public void save(Cause cause) {
+		if(cause.getTotalAmount().compareTo(cause.getBudget())==1){
+			cause.setActiveStatus(false);
+		}
 		causeRepo.save(cause);
 	}
 	

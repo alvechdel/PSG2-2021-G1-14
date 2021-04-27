@@ -23,7 +23,8 @@
         				<label class="col-sm-2 control-label">Objetivo</label>
 
         				<div class="col-sm-10">
-        					<input type="number" name="budget" value="${cause.budget}" step="10.">
+        					<input type="number" name="budget" value="${cause.budget}" step=".01" min="0">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
            					<c:if test="${valid}">
                					<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
             				</c:if>

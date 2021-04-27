@@ -2,8 +2,6 @@ package org.springframework.samples.petclinic.model;
 
 
 import java.math.BigDecimal;
-import java.math.MathContext;
-import java.math.RoundingMode;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
@@ -12,7 +10,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -21,8 +18,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name="donations")
 public class Donation extends BaseEntity {
 	
-	@NotEmpty(message="El nombre no puede estar vacío.")
-	private String name;
+	private String author;
 	
 	private String message;
 	
@@ -39,12 +35,12 @@ public class Donation extends BaseEntity {
     @JoinColumn(name="cause_id")
     private Cause cause;
 
-    public String getName() {
-    	return name;
+    public String getAuthor() {
+    	return author;
     }
     
-    public void setName(String name) {
-    	this.name = name;
+    public void setAuthor(String author) {
+    	this.author = author;
     }
     
     public String getMessage() {
