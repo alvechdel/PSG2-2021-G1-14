@@ -9,18 +9,18 @@
 
 <petclinic:layout pageName="Causes">
     <jsp:body>
-        <h2>Causes</h2>
+        <h2>Nueva Causa</h2>
         <form:form modelAttribute="cause" class="form-horizontal" action="/causes/save">
 
             <div class="form-group has-feedback">
-            	<petclinic:inputField label="Name" name="name"/>
-            	<petclinic:inputField label="Description"  name="description"/>
-            	<petclinic:inputField label="Organization"  name="organization"/>
+            	<petclinic:inputField label="Nombre" name="name"/>
+            	<petclinic:inputField label="Descripci&oacuten"  name="description"/>
+            	<petclinic:inputField label="Organizaci&oacuten"  name="organization"/>
             	<spring:bind path="budget">
                		<c:set var="cssGroup" value="form-group ${status.error ? 'has-error' : '' }"/>
     				<c:set var="valid" value="${not status.error and not empty status.actualValue}"/>
     				<div class="${cssGroup}">
-        				<label class="col-sm-2 control-label">Budget target</label>
+        				<label class="col-sm-2 control-label">Objetivo</label>
 
         				<div class="col-sm-10">
         					<input type="number" name="budget" value="${cause.budget}" step="10.">
@@ -42,11 +42,11 @@
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <input type="hidden" name="id" value="${cause.id}"/>
-                    <button class="btn btn-default" type="submit">Create cause</button>
+                    <button class="btn btn-default" type="submit">Crear causa</button>
                     
                     <spring:url value="/causes" var="causeUrl">
                     </spring:url>
-                    <a class="btn btn-default" href="${fn:escapeXml(causeUrl)}">Back</a>
+                    <a class="btn btn-default" href="${fn:escapeXml(causeUrl)}">Atr&aacutes</a>
                 </div>
                 
                 

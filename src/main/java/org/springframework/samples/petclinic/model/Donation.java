@@ -1,6 +1,9 @@
 package org.springframework.samples.petclinic.model;
 
+
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
@@ -9,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -17,7 +20,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name="donations")
 public class Donation extends BaseEntity {
-
+	
+	@NotEmpty(message="El nombre no puede estar vacío.")
+	private String name;
+	
 	private String message;
 	
 	@Digits(integer=6, fraction=2,message="Dos decimales como máximo")
@@ -26,15 +32,21 @@ public class Donation extends BaseEntity {
 	private BigDecimal amount;
 	
     @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
-	private LocalDateTime donationDate=LocalDateTime.now();
+	private LocalDateTime donationDate=LocalDateTime.now().withNano(0);
     
-	@NotNull
-	private Boolean isAnonymous;
-
+    
     @ManyToOne
     @JoinColumn(name="cause_id")
     private Cause cause;
 
+    public String getName() {
+    	return name;
+    }
+    
+    public void setName(String name) {
+    	this.name = name;
+    }
+    
     public String getMessage() {
         return message;
     }
@@ -44,7 +56,7 @@ public class Donation extends BaseEntity {
     }
 
     public BigDecimal getAmount(){
-        return amount.setScale(2);
+        return amount;
     }
 
     public void setAmount(BigDecimal amount){
@@ -62,14 +74,6 @@ public class Donation extends BaseEntity {
     public void setCause(Cause cause){
         this.cause=cause;
     }
-    
-	public Boolean getIsAnonymous() {
-		return isAnonymous;
-	}
-
-	public void setIsAnonymous(Boolean isAnonymous) {
-		this.isAnonymous = isAnonymous;
-	}
-
+  
 
 }

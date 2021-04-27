@@ -1,6 +1,8 @@
 package org.springframework.samples.petclinic.web;
 
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +34,6 @@ public class CauseController {
 	public CauseController(CauseService causeService, DonationService donationService){
 		this.causeService=causeService;
 		this.donationService=donationService;
-
 	}
 	
 	@GetMapping()
@@ -41,6 +42,15 @@ public class CauseController {
 		modelMap.addAttribute("causes",causes);
 		return "causes/causeList";
 	}
+
+	
+	@GetMapping(path="/{causeId}")
+	public String causeDetails(@PathVariable("causeId") final int causeId, ModelMap modelMap) {
+		Cause cause = causeService.findCauseById(causeId);
+		modelMap.addAttribute("cause",cause);
+		return "causes/detailsCause";
+	}
+	
 	
 	@GetMapping(path="/new")
 	public String newCause(ModelMap modelMap) {
@@ -60,21 +70,34 @@ public class CauseController {
 		}
 		
 	}
-
+	
+	@GetMapping(value = "{causeId}/donation/{donationId}")
+	public String listDetailsDonations(@PathVariable("causeId") final int causeId, @PathVariable("donationId") final int donationId,  ModelMap model) {
+		Donation donation = this.donationService.findDonationById(donationId);
+		model.put("donation", donation);
+		return "donations/donationDetails";
+	}
+	
 	@GetMapping(path="{causeId}/newDonation")
 	public String newDonation(@PathVariable("causeId") int causeId, ModelMap modelMap) {
 		modelMap.addAttribute("donation", new Donation());
+		Cause cause = this.causeService.findCauseById(causeId);
+		modelMap.addAttribute("cause", cause);
 		return VIEW_CREATE_DONATION;
 	}
 
 	@PostMapping(path="{causeId}/saveDonation")
-	public String saveDonation(@Valid Donation donation, BindingResult result, ModelMap modelMap) {
+	public String saveDonation(@PathVariable("causeId") final int causeId, @Valid Donation donation, BindingResult result, ModelMap modelMap) {
 		
 		if(result.hasErrors()) {
 			modelMap.addAttribute("donation", donation);
 			return VIEW_CREATE_DONATION;
 		}else {
+			Cause cause = this.causeService.findCauseById(causeId);
+			donation.setCause(cause);
+//			cause.addDonation(donation);
 			donationService.save(donation);
+			causeService.save(cause);
 			return "redirect:/causes";
 		}
 		

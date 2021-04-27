@@ -10,18 +10,16 @@
 
 <petclinic:layout pageName="causes">
     <h2>Causas</h2>
-    <spring:url value="/causes/new" var="causeUrl">
-                    </spring:url>
-                    <a class="btn btn-default" href="${fn:escapeXml(causeUrl)}">Nueva causa</a>
+    <spring:url value="/causes" var="causeUrl">
+    	</spring:url>
+	<a class="btn btn-default" href="${fn:escapeXml(causeUrl)}">Activas</a>
+    
     <table id="causeTable" class="table table-striped">
         <thead>
         <tr>
             <th style="width: 150px;">Nombre</th>
-            <th style="width: 150px;">Descripci&oacute;n</th>
-            <th style="width: 150px;">Nombre de la organizaci&oacute;n</th>
             <th style="width: 120px">Financiaci&oacute;n recaudada</th>
             <th style="width: 120px">Objetivo</th>
-            <th style="width: 120px">Activo</th>
             <th style="width: 120px">Acciones</th>    
         </tr>
         </thead>
@@ -30,12 +28,6 @@
             <tr>
                 <td>
                     <c:out value="${cause.name}"/>
-                </td>
-                <td>
-                    <c:out value="${cause.description}"/>
-                </td>
-                <td>
-                    <c:out value="${cause.organization}"/>
                 </td>
                 <td>
                     <c:set var="total" value="${0}"/>
@@ -48,19 +40,12 @@
                 <td>
                     <c:out value="${cause.budget}"/>
                 </td>
-                <td>
-                    <c:choose>
-                        <c:when test="${cause.activeStatus eq true}">
-                            S&iacute;
-                        </c:when>
-                        <c:otherwise>
-                            No
-                        </c:otherwise>
-                    </c:choose>
-                </td>
+                
 				<td>
-				
-                    <a class="btn btn-default"  href="${fn:escapeXml(causeUrl)}">Detalles</a>
+				<spring:url value="/causes/{causeId}" var="detailsCause">
+                        <spring:param name="causeId" value="${cause.id}"/>
+                    </spring:url>
+                    <a class="btn btn-default"  href="${fn:escapeXml(detailsCause)}">Detalles</a>
                     <p>&nbsp;</p>
                     <spring:url value="/causes/{causeId}/newDonation" var="donationUrl">
                         <spring:param name="causeId" value="${cause.id}"/>
@@ -72,4 +57,8 @@
         </c:forEach>
         </tbody>
     </table>
+    
+    <spring:url value="/causes/new" var="newCause">
+    	</spring:url>
+	<a class="btn btn-default" href="${fn:escapeXml(newCause)}">Nueva Causa</a>
 </petclinic:layout>
