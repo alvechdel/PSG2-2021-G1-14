@@ -11,4 +11,5 @@
 | 19/04/2021    |               | :worried:      |                | :worried:      | :neutral_face: | 
 | 22/04/2021    |:neutral_face: | :neutral_face: | :neutral_face: | :neutral_face: | :worried:      |
 | 23/04/2021    |:neutral_face: | :neutral_face: | :neutral_face: | :neutral_face: | :worried:      | 
+| 27/04/2021    |               | :smiley:       |                |                 |               | 
 ...
