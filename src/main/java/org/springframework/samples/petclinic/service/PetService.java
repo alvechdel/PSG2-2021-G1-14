@@ -20,7 +20,6 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Book;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Visit;
@@ -30,6 +29,7 @@ import org.springframework.samples.petclinic.repository.VisitRepository;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
 import org.springframework.samples.petclinic.service.exceptions.OverlappingBooksException;
 import org.springframework.samples.petclinic.service.exceptions.OverlappingDatesException;
+import org.springframework.samples.petclinic.util.BookValidator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -69,10 +69,16 @@ public class PetService {
 		visitRepository.save(visit);
 	}
 
-	@Transactional
+	@Transactional(readOnly = true)
+	public Collection<Book> findBookingsByPet(Pet pet) throws DataAccessException {
+		return bookRepository.findByPet(pet);
+	}
+
+	@Transactional(rollbackFor = OverlappingBooksException.class, readOnly = true)	
 	public void saveBook(Book book) throws DataAccessException, OverlappingDatesException, OverlappingBooksException {
-		this.OverlappingBooks(book);
 		this.OverlappingDates(book);
+		Collection<Book> bookings= this.findBookingsByPet(book.getPet());
+		BookValidator.bookIsOccupied(book, bookings);
 		bookRepository.save(book);
 	}
 
@@ -82,14 +88,6 @@ public class PetService {
 			throw new OverlappingDatesException();
 		}
 	}
-
-	@Transactional(rollbackFor = OverlappingBooksException.class, readOnly=true)
-	public void OverlappingBooks(Book book) throws OverlappingBooksException{
-		if(bookRepository.findOverlappingBooks(book.getPet().getId(), book.getStartDate(), book.getEndDate())!=0){
-			throw new OverlappingBooksException();
-		}
-	}
-
 
 	@Transactional(readOnly = true)
 	public Pet findPetById(int id) throws DataAccessException {
@@ -119,7 +117,6 @@ public class PetService {
 	}
 	
 	public void deleteVisit(Visit visit) throws DataAccessException {
-		// visit.setPet(null);
 		visitRepository.delete(visit);
 	}	
 
