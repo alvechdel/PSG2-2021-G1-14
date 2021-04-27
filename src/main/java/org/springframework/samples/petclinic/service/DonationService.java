@@ -1,0 +1,36 @@
+package org.springframework.samples.petclinic.service;
+
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.samples.petclinic.model.Donation;
+import org.springframework.samples.petclinic.repository.DonationRepository;
+import org.springframework.stereotype.Service;
+
+@Service
+public class DonationService {
+
+    @Autowired
+    private DonationRepository donationRepository;
+
+    @Transactional(readOnly = true)	
+	public Iterable<Donation> findAll() {
+		return donationRepository.findAll();
+	}
+	
+	@Transactional
+	public void save(Donation donation) {
+        donationRepository.save(donation);
+	}
+
+	@Transactional(readOnly = true)
+	public Donation findDonationById(int donationId) {
+		return donationRepository.findById(donationId).get();
+	}
+
+
+    
+}
