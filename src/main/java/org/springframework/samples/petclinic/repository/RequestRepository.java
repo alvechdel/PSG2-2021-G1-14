@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
@@ -22,4 +23,8 @@ public interface RequestRepository  extends Repository<Request, Integer>{
     List<Request> findByOwnerOfPet(@Param("owner") Owner owner);
 
     Request findById(Integer id);
+
+    @Modifying
+    @Query("DELETE FROM Request r WHERE r.pet=:pet")
+    void deleteRequestsByPet(@Param("pet") Pet pet);
 }

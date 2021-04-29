@@ -170,6 +170,8 @@ public class PetService {
 		r.setAccepted(true);
 		Pet p =r.getPet();
 		p.setOwner(r.getOwner());
+		p.setAdoption(false);
+		requestRepository.deleteRequestsByPet(p);
 		petRepository.save(p);
 		requestRepository.save(r);
     }
