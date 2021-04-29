@@ -18,13 +18,13 @@
             <petclinic:inputField label="Ciudad" name="city"/>
             <petclinic:inputField label="Telefono" name="telephone"/>
             <petclinic:inputField label="Nombre de usuario" name="user.username"/>
-            <petclinic:inputField label="Contraseña" name="user.password"/>
+            <petclinic:inputField label="Contrase&ntildea" name="user.password"/>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <c:choose>
                     <c:when test="${owner['new']}">
-                        <button class="btn btn-default" type="submit">Añadir propietario</button>
+                        <button class="btn btn-default" type="submit">A&ntildeadir propietario</button>
                     </c:when>
                     <c:otherwise>
                         <button class="btn btn-default" type="submit">Actualizar propietario</button>

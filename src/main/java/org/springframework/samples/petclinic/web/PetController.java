@@ -19,6 +19,13 @@ import java.util.Collection;
 
 import javax.validation.Valid;
 
+
+import java.lang.ProcessBuilder.Redirect;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Owner;
@@ -106,6 +113,7 @@ public class PetController {
 		else {
                     try{
                     	owner.addPet(pet);
+						pet.setAdoption(false);
                     	this.petService.savePet(pet);
                     }catch(DuplicatedPetNameException ex){
                         result.rejectValue("name", "duplicate", "already exists");
@@ -140,7 +148,7 @@ public class PetController {
 		}
 		else {
                         Pet petToUpdate=this.petService.findPetById(petId);
-			BeanUtils.copyProperties(pet, petToUpdate, "id","owner","visits");                                                                                  
+			BeanUtils.copyProperties(pet, petToUpdate, "id","owner","visits","adoption", "requests");                                                                                  
                     try {                    
                         this.petService.savePet(petToUpdate);                    
                     } catch (DuplicatedPetNameException ex) {
@@ -168,5 +176,19 @@ public class PetController {
 		return "redirect:/owners/{ownerId}";
 		
 	}
+
+	@PostMapping("/pets/{petId}/adopt")
+	public String putUpForAdoption(@PathVariable("ownerId") int ownerId, @PathVariable("petId") int petId) {
+		petService.putUpForAdoption(petService.findPetById(petId));
+		return "redirect:/owners/{ownerId}";
+	}
+
+	@PostMapping("/pets/{petId}/noAdopt")
+	public String putDownForAdoption(@PathVariable("ownerId") int ownerId, @PathVariable("petId") int petId) {
+		petService.putDownForAdoption(petService.findPetById(petId));
+		return "redirect:/owners/{ownerId}";
+	}
+
+
 
 }

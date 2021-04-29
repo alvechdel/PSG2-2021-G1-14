@@ -48,10 +48,14 @@ public class OwnerController {
 
 	private final OwnerService ownerService;
 
+	private final UserService userService;
+
 	@Autowired
 	public OwnerController(OwnerService ownerService, UserService userService, AuthoritiesService authoritiesService) {
 		this.ownerService = ownerService;
+		this.userService= userService;
 	}
+
 
 	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
@@ -140,6 +144,7 @@ public class OwnerController {
 	public ModelAndView showOwner(@PathVariable("ownerId") int ownerId) {
 		ModelAndView mav = new ModelAndView("owners/ownerDetails");
 		mav.addObject(this.ownerService.findOwnerById(ownerId));
+		mav.addObject("logged", this.ownerService.findOwnerByUsername(userService.getLoggedUser().getUsername()));
 		return mav;
 	}
 

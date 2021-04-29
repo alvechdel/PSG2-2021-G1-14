@@ -19,16 +19,21 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.samples.petclinic.model.Book;
+import org.springframework.samples.petclinic.model.Owner;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
+import org.springframework.samples.petclinic.model.Request;
 import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.repository.BookRepository;
 import org.springframework.samples.petclinic.repository.PetRepository;
+import org.springframework.samples.petclinic.repository.RequestRepository;
 import org.springframework.samples.petclinic.repository.VisitRepository;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
+import org.springframework.samples.petclinic.service.exceptions.DuplicatedRequestException;
 import org.springframework.samples.petclinic.service.exceptions.OverlappingBooksException;
 import org.springframework.samples.petclinic.service.exceptions.OverlappingDatesException;
+import org.springframework.samples.petclinic.service.exceptions.SameOwnerException;
 import org.springframework.samples.petclinic.util.BookValidator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,15 +53,19 @@ public class PetService {
 	private VisitRepository visitRepository;
 
 	private BookRepository bookRepository;
+
+	private RequestRepository requestRepository;
 	
 
 	@Autowired
 	public PetService(PetRepository petRepository,
 			VisitRepository visitRepository,
-			BookRepository bookRepository) {
+			BookRepository bookRepository,
+			RequestRepository requestRepository) {
 		this.petRepository = petRepository;
 		this.visitRepository = visitRepository;
 		this.bookRepository=bookRepository;
+		this.requestRepository=requestRepository;
 	}
 
 	@Transactional(readOnly = true)
@@ -82,6 +91,20 @@ public class PetService {
 		bookRepository.save(book);
 	}
 
+	@Transactional(rollbackFor = DuplicatedRequestException.class)
+	public void saveRequest(Request request) throws DuplicatedRequestException,SameOwnerException  {
+		this.sameOwner(request);
+		if(requestRepository.validateDuplicateRequest(request.getPet(), request.getOwner())!=0) throw new DuplicatedRequestException();
+		else requestRepository.save(request);
+	}
+
+	@Transactional(rollbackFor = SameOwnerException.class)
+	public void sameOwner(Request request) throws SameOwnerException{
+		if(request.getOwner().equals(request.getPet().getOwner())) throw new SameOwnerException();
+	}
+
+
+
 	@Transactional(rollbackFor = OverlappingDatesException.class, readOnly = true)
 	public void OverlappingDates(Book book) throws OverlappingDatesException{
 		if(book.getEndDate().isBefore(book.getStartDate())) {
@@ -103,10 +126,12 @@ public class PetService {
                 petRepository.save(pet);                
 	}
 
+	@Transactional
 	public Visit findVisitById(int visitId){
 		return visitRepository.findById(visitId);
 	}
 
+	@Transactional
 	public Collection<Visit> findVisitsByPetId(int petId) {
 		return visitRepository.findByPetId(petId);
 	}
@@ -115,9 +140,42 @@ public class PetService {
 	public void deletePet(Pet pet) throws DataAccessException {
 		petRepository.delete(pet);
 	}
+
+	@Transactional
+	public void putUpForAdoption(Pet pet) {
+		pet.setAdoption(true);
+		petRepository.save(pet);
+	}
 	
+	@Transactional
 	public void deleteVisit(Visit visit) throws DataAccessException {
 		visitRepository.delete(visit);
 	}	
+	@Transactional(readOnly = true)
+	public Collection<Pet> findAvalaibleAdoption(){
+		return petRepository.findAvailableAdoption();
+	}
+
+	@Transactional(readOnly=true)
+	public Collection<Request> findRequestByOwnerOfPet(Owner owner){
+		return requestRepository.findByOwnerOfPet(owner);
+	}
+
+	@Transactional
+    public void acceptRequest(Integer requestId) {
+		Request r=requestRepository.findById(requestId);
+		r.setAccepted(true);
+		Pet p =r.getPet();
+		p.setOwner(r.getOwner());
+		p.setAdoption(false);
+		requestRepository.deleteRequestsByPet(p);
+		petRepository.save(p);
+		requestRepository.save(r);
+    }
+
+	public void putDownForAdoption(Pet pet) {
+		pet.setAdoption(false);
+		petRepository.save(pet);
+	}
 
 }
