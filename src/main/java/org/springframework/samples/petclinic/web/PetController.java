@@ -180,6 +180,12 @@ public class PetController {
 		return "redirect:/owners/{ownerId}";
 	}
 
+	@PostMapping("/pets/{petId}/noAdopt")
+	public String putDownForAdoption(@PathVariable("ownerId") int ownerId, @PathVariable("petId") int petId) {
+		petService.putDownForAdoption(petService.findPetById(petId));
+		return "redirect:/owners/{ownerId}";
+	}
+
 
 
 }

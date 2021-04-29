@@ -34,6 +34,7 @@ import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNam
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedRequestException;
 import org.springframework.samples.petclinic.service.exceptions.OverlappingBooksException;
 import org.springframework.samples.petclinic.service.exceptions.OverlappingDatesException;
+import org.springframework.samples.petclinic.service.exceptions.SameOwnerException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -84,11 +85,19 @@ public class PetService {
 		bookRepository.save(book);
 	}
 
-	@Transactional
-	public void saveRequest(Request request) throws DuplicatedRequestException {
+	@Transactional(rollbackFor = DuplicatedRequestException.class)
+	public void saveRequest(Request request) throws DuplicatedRequestException,SameOwnerException  {
+		this.sameOwner(request);
 		if(requestRepository.validateDuplicateRequest(request.getPet(), request.getOwner())!=0) throw new DuplicatedRequestException();
 		else requestRepository.save(request);
 	}
+
+	@Transactional(rollbackFor = SameOwnerException.class)
+	public void sameOwner(Request request) throws SameOwnerException{
+		if(request.getOwner().equals(request.getPet().getOwner())) throw new SameOwnerException();
+	}
+
+
 
 	@Transactional(rollbackFor = OverlappingDatesException.class, readOnly = true)
 	public void OverlappingDates(Book book) throws OverlappingDatesException{
@@ -164,5 +173,10 @@ public class PetService {
 		petRepository.save(p);
 		requestRepository.save(r);
     }
+
+	public void putDownForAdoption(Pet pet) {
+		pet.setAdoption(false);
+		petRepository.save(pet);
+	}
 
 }

@@ -16,6 +16,7 @@
                 <th>Nombre</th>
                 <th>Fecha de Nacimiento</th>
                 <th>Tipo</th>
+                <th>Due&ntildeo</th>
                 <th></th>
             </tr>
         </thead>
@@ -25,12 +26,17 @@
                 <td><c:out value="${pet.name}"/></td>
                 <td><petclinic:localDate date="${pet.birthDate}" pattern="yyyy-MM-dd"/></td>
                 <td><c:out value="${pet.type.name}"/></td>
+                <td><c:out value="${pet.owner.firstName} ${pet.owner.lastName}"></c:out></td>
+                
                 <td>
+                    <c:if test="${pet.owner.user ne user}">  
                     <spring:url value="adoptions/{petId}/new" var="addUrl">
                         <spring:param name="petId" value="${pet.id}"/>
                     </spring:url>
                     <a href="${fn:escapeXml(addUrl)}" class="btn btn-default">Realizar solicitud</a>
+                </c:if>
                 </td>
+                 
             </tr>
 
         </c:forEach>

@@ -15,6 +15,7 @@ import org.springframework.samples.petclinic.service.OwnerService;
 import org.springframework.samples.petclinic.service.PetService;
 import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedRequestException;
+import org.springframework.samples.petclinic.service.exceptions.SameOwnerException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -42,6 +43,7 @@ public class RequestController {
 	public String showAvailableAdoptionPets(Map<String, Object> model) {
 		Collection<Pet> pets=petService.findAvalaibleAdoption();
 		model.put("pets", pets);
+        model.put("user", userService.getLoggedUser());
 		return "adoptions/adoptionsList";
 	}
 
@@ -85,6 +87,9 @@ public class RequestController {
                 petService.saveRequest(request);
             }catch (DuplicatedRequestException ex){
                 result.rejectValue("comment","Duplicated", "No puedes realizar dos solicitudes de adopcion de una misma mascota");
+                return "adoptions/createOrUpdateRequestForm";
+            }catch (SameOwnerException ex1) {
+                result.rejectValue("comment", "SameOwner", "No puedes realizar una solicitud de adopcion a tu propia mascota");
                 return "adoptions/createOrUpdateRequestForm";
             }
             

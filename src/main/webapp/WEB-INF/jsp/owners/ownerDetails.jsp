@@ -159,6 +159,18 @@
                         </form>
                     </td>
                 </c:if>
+                <c:if test="${pet.adoption && pet.owner.id eq logged.id}">
+                    <td valign="top">
+                        <spring:url value="/owners/${owner.id}/pets/{petId}/noAdopt" var="noAdoptUrl">
+                            <spring:param name="ownerId" value="${owner.id}"/>
+                            <spring:param name="petId" value="${pet.id}"/>
+                        </spring:url>
+                        <form action="${fn:escapeXml(noAdoptUrl)}" method="post">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            <input type="hidden" name="petId" value='<c:out value="${pet.id}"/>'>
+                            <button class="btn btn-default" type="submit">Parar adopcion</button>
+                        </form>
+                </c:if>
         </c:forEach>
     </table>
 
