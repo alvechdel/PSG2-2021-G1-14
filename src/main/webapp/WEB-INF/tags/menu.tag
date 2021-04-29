@@ -5,7 +5,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <!--  >%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%-->
 <%@ attribute name="name" required="true" rtexprvalue="true"
-	description="Name of the active menu: home, owners, vets or error"%>
+	description="Name of the active menu: home, owners, vets, error or causes"%>
 
 <nav class="navbar navbar-default" role="navigation">
 	<div class="container">
@@ -40,21 +40,20 @@
 					<span>Veterinarios</span>
 				</petclinic:menuItem>
 
+
 				<petclinic:menuItem active="${name eq 'adoptions'}" url="/adoptions"
 					title="adoptions">
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 					<span>Adopciones</span>
 				</petclinic:menuItem>
 
-				<petclinic:menuItem active="${name eq 'error'}" url="/oups"
-					title="trigger a RuntimeException to see how it is handled">
-					<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
-					<span>Error</span>
+				<petclinic:menuItem active="${name eq 'causes'}" url="/causes"
+					title="Causas">
+					<span class="glyphicon glyphicon-tree-conifer" aria-hidden="true"></span>
+					<span>Causas</span>
 				</petclinic:menuItem>
-
 			</ul>
-
-
+			
 
 
 			<ul class="nav navbar-nav navbar-right">
@@ -74,7 +73,7 @@
 									<div class="row">
 										<div class="col-lg-4">
 											<p class="text-center">
-												<span class="glyphicon glyphicon-user icon-size"></span>
+												<span class="glyphicon glyphicon-user icon-size" style="font-size: 50px;"></span>
 											</p>
 										</div>
 										<div class="col-lg-8">
