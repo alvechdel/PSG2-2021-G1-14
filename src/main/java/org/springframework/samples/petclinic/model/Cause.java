@@ -40,7 +40,11 @@ public class Cause extends NamedEntity{
 	private Set<Donation> donations;
 
 	public BigDecimal getTotalAmount(){
-		return donations.stream().map(x->x.getAmount().setScale(2, RoundingMode.HALF_DOWN)).reduce(BigDecimal.ZERO, BigDecimal::add);
+		BigDecimal res=BigDecimal.ZERO;
+        if(donations != null && donations.size()>0){
+            res=donations.stream().map(x->x.getAmount().setScale(2, RoundingMode.HALF_DOWN)).reduce(BigDecimal.ZERO, BigDecimal::add);
+        }
+        return res;
 	}
 	public String getDescription() {
 		return description;
