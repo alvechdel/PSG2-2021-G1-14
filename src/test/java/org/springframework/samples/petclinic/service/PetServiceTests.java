@@ -16,6 +16,8 @@
 package org.springframework.samples.petclinic.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 import java.util.Collection;
@@ -254,4 +256,33 @@ class PetServiceTests {
 		assertThat(pet7.getRequest().size()).isEqualTo(found+1);
 
 	}
+
+	@Test
+	@Transactional
+	public void shouldPutUpAdoption(){
+		Pet pet7=this.petService.findPetById(7);
+		this.petService.putUpForAdoption(pet7);
+		pet7=this.petService.findPetById(7);
+		assertTrue(pet7.isAdoption());
+	}
+
+	@Test
+	@Transactional
+	public void shouldPutDownAdoption(){
+		Pet pet7=this.petService.findPetById(7);
+		this.petService.putDownForAdoption(pet7);
+		pet7=this.petService.findPetById(7);
+		assertFalse(pet7.isAdoption());
+	}
+
+	@Test
+	public void shouldPetsWithAvailableAdoption(){
+		Collection<Pet> pets=this.petService.findAvalaibleAdoption();
+		assertThat(pets.size()).isEqualTo(3);
+		Pet[] petsArr = pets.toArray(new Pet[pets.size()]);
+		assertThat(petsArr[0].getId()).isNotNull();
+		assertThat(petsArr[0].getName()).isNotNull();
+	}
+
+	
 }
