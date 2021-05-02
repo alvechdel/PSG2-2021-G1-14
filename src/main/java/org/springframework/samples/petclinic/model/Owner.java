@@ -24,6 +24,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -68,6 +69,9 @@ public class Owner extends Person {
     @JoinColumn(name = "username", referencedColumnName = "username")
 	private User user;
 	//
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="pet", fetch=FetchType.EAGER)
+	private Set<Request> requests;
 	
 	public String getAddress() {
 		return this.address;
@@ -165,6 +169,28 @@ public class Owner extends Person {
 			}
 		}
 		return null;
+	}
+
+	protected Set<Request> getRequestsInternal() {
+		if (this.requests == null) {
+			this.requests = new HashSet<>();
+		}
+		return this.requests;
+	}
+
+	public List<Request> getRequest() {
+		List<Request> sortedRequest = new ArrayList<>(getRequestsInternal());
+		PropertyComparator.sort(sortedRequest, new MutableSortDefinition("date", false, false));
+		return Collections.unmodifiableList(sortedRequest);
+	}
+
+	protected void setRequestInternal(Set<Request> requests) {
+		this.requests = requests;
+	}
+
+	public void addRequest(Request request) {
+		getRequestsInternal().add(request);
+		request.setOwner(this);
 	}
 
 	@Override
