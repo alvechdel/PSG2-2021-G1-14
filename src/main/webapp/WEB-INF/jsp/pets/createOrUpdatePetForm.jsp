@@ -45,7 +45,5 @@
                 </div>
             </div>
         </form:form>
-        <c:if test="${!pet['new']}">
-        </c:if>
     </jsp:body>
 </petclinic:layout>

@@ -33,6 +33,12 @@ public class CauseController {
 	private static final String VIEW_LIST_CAUSE="causes/causeList";
 
 	private static final String VIEW_CREATE_DONATION = "donations/createDonation";	
+	
+	private static final String CAUSE = "cause";
+	
+	private static final String REDIRECT = "redirect:/causes";
+	
+	private static final String DONATION = "donation";
 
 	private final CauseService causeService;
 
@@ -68,14 +74,14 @@ public class CauseController {
 	@GetMapping(path="/{causeId}")
 	public String causeDetails(@PathVariable("causeId") final int causeId, ModelMap modelMap) {
 		Cause cause = causeService.findCauseById(causeId);
-		modelMap.addAttribute("cause",cause);
+		modelMap.addAttribute(CAUSE,cause);
 		return "causes/detailsCause";
 	}
 	
 	
 	@GetMapping(path="/new")
 	public String newCause(ModelMap modelMap) {
-		modelMap.addAttribute("cause", new Cause());
+		modelMap.addAttribute(CAUSE, new Cause());
 		return VIEW_CREATE_CAUSE;
 	}
 	
@@ -83,11 +89,11 @@ public class CauseController {
 	public String saveCause(@Valid Cause cause, BindingResult result, ModelMap modelMap) {
 		
 		if(result.hasErrors()) {
-			modelMap.addAttribute("cause",cause);
+			modelMap.addAttribute(CAUSE,cause);
 			return VIEW_CREATE_CAUSE;
 		}else {
 			causeService.save(cause);
-			return "redirect:/causes";
+			return REDIRECT;
 		}
 		
 	}
@@ -95,15 +101,15 @@ public class CauseController {
 	@GetMapping(value = "{causeId}/donation/{donationId}")
 	public String listDetailsDonations(@PathVariable("causeId") final int causeId, @PathVariable("donationId") final int donationId,  ModelMap model) {
 		Donation donation = this.donationService.findDonationById(donationId);
-		model.put("donation", donation);
+		model.put(DONATION, donation);
 		return "donations/donationDetails";
 	}
 	
 	@GetMapping(path="/{causeId}/newDonation")
 	public String newDonation(@PathVariable("causeId") int causeId, ModelMap modelMap) {
-		modelMap.put("donation", new Donation());
+		modelMap.put(DONATION, new Donation());
 		Cause cause = this.causeService.findCauseById(causeId);
-		modelMap.put("cause", cause);
+		modelMap.put(CAUSE, cause);
 		return VIEW_CREATE_DONATION;
 	}
 	
@@ -112,7 +118,7 @@ public class CauseController {
 	public String saveDonation(@PathVariable("causeId") final int causeId, @Valid Donation donation, BindingResult result, ModelMap modelMap) {
 		
 		if(result.hasErrors()) {
-			modelMap.addAttribute("donation", donation);
+			modelMap.addAttribute(DONATION, donation);
 			return VIEW_CREATE_DONATION;
 		}else {
 			Cause cause = this.causeService.findCauseById(causeId);
@@ -122,7 +128,7 @@ public class CauseController {
 			donation.setAuthor(owner.getFirstName() + " " + owner.getLastName());
 			donationService.save(donation);
 			causeService.save(cause);
-			return "redirect:/causes";
+			return REDIRECT;
 		}
 		
 	}
@@ -155,7 +161,7 @@ public class CauseController {
 			Cause causeToUpdate = causeService.findCauseById(causeId);
 			BeanUtils.copyProperties(cause, causeToUpdate, "donations");
 			causeService.save(causeToUpdate);
-			return "redirect:/causes";
+			return REDIRECT;
 		}
 	}
 	
