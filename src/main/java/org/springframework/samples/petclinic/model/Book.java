@@ -1,7 +1,5 @@
 package org.springframework.samples.petclinic.model;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -11,16 +9,21 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="books")
 public class Book extends BaseEntity {
-
+	
+    @NotNull(message = "La fecha de inicio no puede estar vacía")
     @Column(name="start_date")
     @DateTimeFormat(pattern = "yyyy/MM/dd")
     @FutureOrPresent
 	private LocalDate startDate;
-
+    
+    @NotNull(message = "La fecha de fin no puede estar vacía")
     @Column(name="end_date")
     @DateTimeFormat(pattern = "yyyy/MM/dd")
     @Future

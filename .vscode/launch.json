@@ -2,12 +2,29 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch PetclinicApplication",
+            "request": "launch",
+    "mainClass": "org.springframework.samples.petclinic.PetclinicApplication",
+            "projectName": "spring-petclinic.psg2.2021-G1-14"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-PetclinicApplication<spring-petclinic>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
             "mainClass": "org.springframework.samples.petclinic.PetclinicApplication",
             "projectName": "spring-petclinic",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-PetclinicApplication<spring-petclinic.psg2.2021-G1-14>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "org.springframework.samples.petclinic.PetclinicApplication",
+            "projectName": "spring-petclinic.psg2.2021-G1-14",
             "args": ""
         }
     ]

@@ -43,6 +43,15 @@
     </spring:url>
     <a href="${fn:escapeXml(addUrl)}" class="btn btn-default">A&ntildeadir mascota</a>
 
+
+    <c:if test="${owner.id == logged.id}">
+        <spring:url value="{ownerId}/requests" var="requestsUrl">
+        <spring:param name="ownerId" value="${owner.id}"/>
+        </spring:url>
+        <a href="${fn:escapeXml(requestsUrl)}" class="btn btn-default">Ver solicitudes</a>
+    </c:if>
+  
+
     <br/>
     <br/>
     <br/>
@@ -136,11 +145,32 @@
                             </td>
                         </tr>
                     </table>
-
-
                 </td>
-            </tr>
-
+                <c:if test="${not pet.adoption && pet.owner.id eq logged.id}">
+                    <td valign="top">
+                        <spring:url value="/owners/${owner.id}/pets/{petId}/adopt" var="adoptUrl">
+                            <spring:param name="ownerId" value="${owner.id}"/>
+                            <spring:param name="petId" value="${pet.id}"/>
+                        </spring:url>
+                        <form action="${fn:escapeXml(adoptUrl)}" method="post">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            <input type="hidden" name="petId" value='<c:out value="${pet.id}"/>'>
+                            <button class="btn btn-default" type="submit">Poner en Adopci&oacuten</button>
+                        </form>
+                    </td>
+                </c:if>
+                <c:if test="${pet.adoption && pet.owner.id eq logged.id}">
+                    <td valign="top">
+                        <spring:url value="/owners/${owner.id}/pets/{petId}/noAdopt" var="noAdoptUrl">
+                            <spring:param name="ownerId" value="${owner.id}"/>
+                            <spring:param name="petId" value="${pet.id}"/>
+                        </spring:url>
+                        <form action="${fn:escapeXml(noAdoptUrl)}" method="post">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            <input type="hidden" name="petId" value='<c:out value="${pet.id}"/>'>
+                            <button class="btn btn-default" type="submit">Parar adopcion</button>
+                        </form>
+                </c:if>
         </c:forEach>
     </table>
 

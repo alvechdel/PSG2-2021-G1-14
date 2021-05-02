@@ -16,6 +16,8 @@
 package org.springframework.samples.petclinic.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 import java.util.Collection;
@@ -27,14 +29,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
-import org.springframework.samples.petclinic.model.Vet;
+import org.springframework.samples.petclinic.model.Request;
 import org.springframework.samples.petclinic.model.Visit;
-import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
+import org.springframework.samples.petclinic.service.exceptions.DuplicatedRequestException;
+import org.springframework.samples.petclinic.service.exceptions.SameOwnerException;
 import org.springframework.samples.petclinic.util.EntityUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -75,7 +77,7 @@ class PetServiceTests {
 	protected PetService petService;
         
         @Autowired
-	protected OwnerService ownerService;	
+	protected OwnerService ownerService;
 
 	@Test
 	void shouldFindPetWithCorrectId() {
@@ -214,6 +216,8 @@ class PetServiceTests {
 		assertThat(visit.getId()).isNotNull();
 	}
 
+	
+
 	@Test
 	void shouldFindVisitsByPetId() throws Exception {
 		Collection<Visit> visits = this.petService.findVisitsByPetId(7);
@@ -223,5 +227,62 @@ class PetServiceTests {
 		assertThat(visitArr[0].getDate()).isNotNull();
 		assertThat(visitArr[0].getPet().getId()).isEqualTo(7);
 	}
+	
+	@Test
+	@Transactional
+	public void shouldAddNewRequestForPet(){
+		Owner owner6 = this.ownerService.findOwnerById(6);
+		Pet pet7 = this.petService.findPetById(7);
+		int found=pet7.getRequest().size();
+		Request request= new Request();
+		request.setAccepted(false);
+		request.setComment("test");
+		request.setDate(LocalDate.now());
+		request.setOwner(owner6);
+		pet7.addRequest(request);
+			try {
+				this.petService.savePet(pet7);
+			} catch (DuplicatedPetNameException ex) {
+				Logger.getLogger(PetServiceTests.class.getName()).log(Level.SEVERE, null, ex);
+			}
+			try{
+				this.petService.saveRequest(request);
+			} catch (DuplicatedRequestException ex) {
+				Logger.getLogger(PetServiceTests.class.getName()).log(Level.SEVERE, null, ex);
+			} catch (SameOwnerException ex1) {
+				Logger.getLogger(PetServiceTests.class.getName()).log(Level.SEVERE, null, ex1);
+			}
+		pet7 =this.petService.findPetById(7);
+		assertThat(pet7.getRequest().size()).isEqualTo(found+1);
 
+	}
+
+	@Test
+	@Transactional
+	public void shouldPutUpAdoption(){
+		Pet pet7=this.petService.findPetById(7);
+		this.petService.putUpForAdoption(pet7);
+		pet7=this.petService.findPetById(7);
+		assertTrue(pet7.isAdoption());
+	}
+
+	@Test
+	@Transactional
+	public void shouldPutDownAdoption(){
+		Pet pet7=this.petService.findPetById(7);
+		this.petService.putDownForAdoption(pet7);
+		pet7=this.petService.findPetById(7);
+		assertFalse(pet7.isAdoption());
+	}
+
+	@Test
+	public void shouldPetsWithAvailableAdoption(){
+		Collection<Pet> pets=this.petService.findAvalaibleAdoption();
+		assertThat(pets.size()).isEqualTo(3);
+		Pet[] petsArr = pets.toArray(new Pet[pets.size()]);
+		assertThat(petsArr[0].getId()).isNotNull();
+		assertThat(petsArr[0].getName()).isNotNull();
+	}
+
+	
 }
