@@ -16,4 +16,3 @@
 | 30/04/2021    |:neutral_face: |                |                |                |                |
 | 01/05/2021    |:neutral_face: |                |                |                | :neutral_face: |
 | 02/05/2021    |:neutral_face: | :neutral_face: | :neutral_face: | :smiley:       | :neutral_face: |
-...
