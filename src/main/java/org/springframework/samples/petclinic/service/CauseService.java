@@ -13,8 +13,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class CauseService {
 	
-	@Autowired
 	private CauseRepository causeRepo;
+
+	@Autowired
+	public 	CauseService(CauseRepository causeRepository){
+		this.causeRepo=causeRepository;
+	}
 	
 	@Transactional
 	public Iterable<Cause> findAll() {

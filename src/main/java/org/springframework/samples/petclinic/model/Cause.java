@@ -25,9 +25,9 @@ public class Cause extends NamedEntity{
 	
 	@NotBlank
 	private String description;
-	
-	@Min(value=1,message="La cantidad objetivo mínima debe de ser 1")
-	@NotNull
+
+	@NotNull(message="La cantidad debe ser al menos 1 &euro;")
+	@Min(value=1,message="La cantidad objetivo mínima debe de ser 1 &euro;")
 	private Double budget;
 	
 	@NotBlank
@@ -89,6 +89,11 @@ public class Cause extends NamedEntity{
 		List<Donation> sortedDonation = new ArrayList<>(getDonationsInternal());
 		PropertyComparator.sort(sortedDonation, new MutableSortDefinition("id", true, true));
 		return sortedDonation;
+	}
+
+	public void setDonations(Set<Donation> donations){
+		this.donations=donations;
+
 	}
 
 	protected void setDonationsInternal(Set<Donation> donations) {

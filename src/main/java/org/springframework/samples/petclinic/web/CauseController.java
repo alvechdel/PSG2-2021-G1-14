@@ -97,15 +97,15 @@ public class CauseController {
 		return "donations/donationDetails";
 	}
 	
-	@GetMapping(path="{causeId}/newDonation")
+	@GetMapping(path="/{causeId}/newDonation")
 	public String newDonation(@PathVariable("causeId") int causeId, ModelMap modelMap) {
-		modelMap.addAttribute("donation", new Donation());
+		modelMap.put("donation", new Donation());
 		Cause cause = this.causeService.findCauseById(causeId);
-		modelMap.addAttribute("cause", cause);
+		modelMap.put("cause", cause);
 		return VIEW_CREATE_DONATION;
 	}
 
-	@PostMapping(path="{causeId}/saveDonation")
+	@PostMapping(path="/{causeId}/newDonation")
 	public String saveDonation(@PathVariable("causeId") final int causeId, @Valid Donation donation, BindingResult result, ModelMap modelMap) {
 		
 		if(result.hasErrors()) {
