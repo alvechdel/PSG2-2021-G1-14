@@ -7,17 +7,13 @@
 
 <petclinic:layout pageName="donations">
 		<h2>Nueva Donaci&oacuten</h2>
-		  <spring:url value="/causes/{causeId}/saveDonation" var="saveDonation">
-		  		<spring:param name="causeId" value="${cause.id}"/>
-		  </spring:url>
-		<form:form modelAttribute="donation" class="form-horizontal" id="form-donation" action="${saveDonation}">
-		
+		<form:form modelAttribute="donation" class="form-horizontal" id="form-donation">		
 			<div class="form-group has-feedback">	
             	<petclinic:inputField label="Mensaje"  name="message"/>
         				<label class="col-sm-2 control-label" style="padding-right:25px;" for="amount">Cantidad (&euro;)</label>
         				<div class="col-sm-10">
         					<input type="number" name="amount" value="${donation.amount}" step=".01" min="0" style="margin-left:-10px;" >
-           					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+							<input type="hidden" name="causeId" value="${donation.cause.id}"/>
            		</div>		
             </div>
            <div class="form-group">

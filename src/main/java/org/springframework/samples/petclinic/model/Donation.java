@@ -8,8 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
-import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -20,11 +21,12 @@ public class Donation extends BaseEntity {
 	
 	private String author;
 	
+    @NotBlank(message = "El mensaje no puede estar en blanco")
 	private String message;
 	
+    @NotNull(message="Debe introducir una cantidad de dinero")
+    @DecimalMin(value = "1.00", message = "La donación mínima es 1 &euro;")
 	@Digits(integer=6, fraction=2,message="Dos decimales como máximo")
-    @Min(value=1, message="La donación mínima ha de ser 1 €")
-	@NotNull(message="Debe introducir una cantidad de dinero")
 	private BigDecimal amount;
 	
     @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
