@@ -45,7 +45,8 @@ public class Cause extends NamedEntity{
             res=donations.stream().map(x->x.getAmount().setScale(2, RoundingMode.HALF_DOWN)).reduce(BigDecimal.ZERO, BigDecimal::add);
         }
         return res;
-    }
+	}
+
 	public String getDescription() {
 		return description;
 	}

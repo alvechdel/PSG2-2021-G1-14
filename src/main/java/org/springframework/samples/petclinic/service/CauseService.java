@@ -38,5 +38,9 @@ public class CauseService {
 		}
 		causeRepo.save(cause);
 	}
+	@Transactional
+	public void delete(Cause cause) {
+		 causeRepo.delete(cause);
+	}
 	
 }

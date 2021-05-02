@@ -25,13 +25,13 @@
             <td><c:out value="${cause.organization}"/></td>
         </tr>
        <tr>
-       		<th>Objetivo</th>
+       		<th>Objetivo (&euro;)</th>
        		 <td>
                     <c:out value="${cause.budget}"/>
              </td> 
        </tr>
         <tr>
-            <th>Financiaci&oacuten recaudada</th>
+            <th>Financiaci&oacuten recaudada (&euro;)</th>
             <td><c:set var="total" value="${0}"/>
                     <c:forEach items="${cause.donations}" var="donation">
                         <c:set var="total" value="${total + donation.amount}"/> 

@@ -2,9 +2,11 @@ package org.springframework.samples.petclinic.web;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Cause;
 import org.springframework.samples.petclinic.model.Donation;
@@ -104,6 +106,7 @@ public class CauseController {
 		modelMap.addAttribute("cause", cause);
 		return VIEW_CREATE_DONATION;
 	}
+	
 
 	@PostMapping(path="{causeId}/saveDonation")
 	public String saveDonation(@PathVariable("causeId") final int causeId, @Valid Donation donation, BindingResult result, ModelMap modelMap) {
@@ -123,4 +126,37 @@ public class CauseController {
 		}
 		
 	}
+	@GetMapping(path="{causeId}/delete")
+	public String deleteCause(@PathVariable("causeId") int causeId, ModelMap modelMap) {
+		String view =VIEW_LIST_CAUSE;
+		Optional<Cause> cause = Optional.of(causeService.findCauseById(causeId));
+		if(cause.isPresent()) {
+			causeService.delete(cause.get());
+			modelMap.addAttribute("message", "Se ha eliminado la causa");
+			view = causeActiveList(modelMap);		
+		}else {
+			modelMap.addAttribute("message", "No se ha encontrado el elemento");
+			view = causeActiveList(modelMap);
+		}
+		return view;
+	}
+	@GetMapping(path="{causeId}/edit")
+	public String initUpdateCauseForm(@PathVariable("causeId") int causeId, ModelMap modelMap) {
+		Cause cause = this.causeService.findCauseById(causeId);
+		modelMap.addAttribute(cause);
+		return VIEW_CREATE_CAUSE;
+	}
+	@PostMapping(path="{causeId}/save")
+	public String processUpdateCauseForm(@Valid Cause cause, BindingResult result, @PathVariable("causeId") int causeId) {
+		
+		if(result.hasErrors()) {
+			return VIEW_CREATE_CAUSE;
+		}else {
+			Cause causeToUpdate = causeService.findCauseById(causeId);
+			BeanUtils.copyProperties(cause, causeToUpdate, "donations");
+			causeService.save(causeToUpdate);
+			return "redirect:/causes";
+		}
+	}
+	
 }

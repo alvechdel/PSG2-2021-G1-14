@@ -23,8 +23,8 @@
         <thead>
         <tr>
             <th style="width: 150px;">Nombre</th>
-            <th style="width: 120px">Financiaci&oacute;n recaudada</th>
-            <th style="width: 120px">Objetivo</th>
+            <th style="width: 120px">Financiaci&oacute;n recaudada (&euro;)</th>
+            <th style="width: 120px">Objetivo (&euro;)</th>
             <th style="width: 120px">Acciones</th>    
         </tr>
         </thead>
@@ -53,9 +53,24 @@
                                 <spring:url value="/causes/{causeId}/newDonation" var="donationUrl">
                                     <spring:param name="causeId" value="${cause.id}"/>
                                 </spring:url>
+                                
                                 <a class="btn btn-default"  href="${fn:escapeXml(donationUrl)}">Donar para esta causa</a>
+                               
+                               <spring:url value="/causes/{causeId}/delete" var="causeUrl">
+                                    <spring:param name="causeId" value="${cause.id}"/>
+                                </spring:url>
+                                
+                                <a class="btn btn-default"  href="${fn:escapeXml(causeUrl)}">Eliminar causa</a>
+                                
+                                <spring:url value="/causes/{causeId}/edit" var="causeUrl">
+                                    <spring:param name="causeId" value="${cause.id}"/>
+                                </spring:url>
+                                
+                                <a class="btn btn-default"  href="${fn:escapeXml(causeUrl)}">Editar causa</a>
+                                
                             </sec:authorize>
                         </c:if>
+
                     </td>
                 </tr>
         </c:forEach>

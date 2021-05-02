@@ -94,6 +94,7 @@ INSERT INTO requests(id, pet_id, owner_id, accepted, date,comment) VALUES (3, 13
 INSERT INTO causes(id,name,active_status,budget,description,organization) VALUES (1,'Hambruna y educación infantil',true,150000.,'Para la compra de alimentos y bebidas, así como financiar educación para los niños de Uganda', 'UNICEF');
 INSERT INTO causes(id,name,active_status,budget,description,organization) VALUES (2,'Información gratuita y libre',true, 350000,'Donativos para mantener la infraestructura permitiendo continuar la difusión de contenido públicamente y sin coste alguno', 'Wikimedia Foundation');
 INSERT INTO causes(id,name,active_status,budget,description,organization) VALUES (3,'Lucha contra el cambio climático',false, 100000,'Para la lucha contra el cambio climático y la deforestación', 'Green Peace');
+INSERT INTO causes(id,name,active_status,budget,description,organization) VALUES (4,'Pobreza infantil',true, 100000,'Para la lucha contra la pobreza infantil', 'Org2');
 
 INSERT INTO donations(id, author, amount, donation_date ,  message ,  cause_id) VALUES (1, 'Lucas', 123452.27, parsedatetime(LOCALTIMESTAMP(0), 'yyyy-MM-dd HH:mm'), 'Dono de prueba', 1);
 INSERT INTO donations(id, author, amount, donation_date ,  message ,  cause_id) VALUES (2, 'Alex', 24.74, parsedatetime(LOCALTIMESTAMP(0), 'yyyy-MM-dd HH:mm'), 'Dono de prueba 2', 1);
