@@ -37,7 +37,8 @@ public class CauseService {
 	
 	@Transactional
 	public void save(Cause cause) {
-		if(cause.getTotalAmount().compareTo(BigDecimal.valueOf(cause.getBudget()))==1){
+		Integer res = cause.getTotalAmount().compareTo(BigDecimal.valueOf(cause.getBudget()));
+		if(res >= 0){
 			cause.setActiveStatus(false);
 		}
 		causeRepo.save(cause);
