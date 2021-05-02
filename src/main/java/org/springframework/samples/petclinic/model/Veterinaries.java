@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Arjen Poutsma
  */
 @XmlRootElement
-public class Vets {
+public class Veterinaries {
 
 	private List<Vet> vets;
 

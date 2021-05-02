@@ -23,7 +23,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Specialty;
 import org.springframework.samples.petclinic.model.Vet;
-import org.springframework.samples.petclinic.model.Vets;
+import org.springframework.samples.petclinic.model.Veterinaries;
 import org.springframework.samples.petclinic.service.SpecialtyService;
 import org.springframework.samples.petclinic.service.VetService;
 import org.springframework.stereotype.Controller;
@@ -69,18 +69,18 @@ public class VetController {
 		// Here we are returning an object of type 'Vets' rather than a collection of Vet
 		// objects
 		// so it is simpler for Object-Xml mapping
-		Vets vets = new Vets();
+		Veterinaries vets = new Veterinaries();
 		vets.getVetList().addAll(this.vetService.findVets());
 		model.put("vets", vets);
 		return "vets/vetList";
 	}
 
 	@GetMapping(value = { "/vets.xml"})
-	public @ResponseBody Vets showResourcesVetList() {
+	public @ResponseBody Veterinaries showResourcesVetList() {
 		// Here we are returning an object of type 'Vets' rather than a collection of Vet
 		// objects
 		// so it is simpler for JSon/Object mapping
-		Vets vets = new Vets();
+		Veterinaries vets = new Veterinaries();
 		vets.getVetList().addAll(this.vetService.findVets());
 		return vets;
 	}

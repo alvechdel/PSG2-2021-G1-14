@@ -49,6 +49,8 @@ public class OwnerController {
 	private final OwnerService ownerService;
 
 	private final UserService userService;
+	
+	private final static String REDIRECT_OWNER = "redirect:/owners/";
 
 	@Autowired
 	public OwnerController(OwnerService ownerService, UserService userService, AuthoritiesService authoritiesService) {
@@ -78,7 +80,7 @@ public class OwnerController {
 			//creating owner, user and authorities
 			this.ownerService.saveOwner(owner);
 			
-			return "redirect:/owners/" + owner.getId();
+			return REDIRECT_OWNER + owner.getId();
 		}
 	}
 
@@ -106,7 +108,7 @@ public class OwnerController {
 		else if (results.size() == 1) {
 			// 1 owner found
 			owner = results.iterator().next();
-			return "redirect:/owners/" + owner.getId();
+			return REDIRECT_OWNER + owner.getId();
 		}
 		else {
 			// multiple owners found
@@ -143,7 +145,8 @@ public class OwnerController {
 	@GetMapping("/owners/{ownerId}")
 	public ModelAndView showOwner(@PathVariable("ownerId") int ownerId) {
 		ModelAndView mav = new ModelAndView("owners/ownerDetails");
-		mav.addObject(this.ownerService.findOwnerById(ownerId));
+		Owner owner = this.ownerService.findOwnerById(ownerId);
+		mav.addObject(owner); 
 		mav.addObject("logged", this.ownerService.findOwnerByUsername(userService.getLoggedUser().getUsername()));
 		return mav;
 	}
@@ -153,7 +156,7 @@ public class OwnerController {
 		Owner owner = this.ownerService.findOwnerById(ownerId);
 		owner.setUser(null); //Should I delete the user instead? I think so but all owners are using the same username at this point
 		this.ownerService.deleteOwner(owner);
-		return "redirect:/owners/";
+		return REDIRECT_OWNER;
 	}
 
 }
