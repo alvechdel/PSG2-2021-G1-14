@@ -19,13 +19,6 @@ import java.util.Collection;
 
 import javax.validation.Valid;
 
-
-import java.lang.ProcessBuilder.Redirect;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Owner;
