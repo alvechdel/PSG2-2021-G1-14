@@ -2,7 +2,7 @@
 
 | Day           | José Luis     | Álvaro         | Ana            | Carlos         | Fernando       |
 | ------------- | ------------- | -------------  | -------------  | -------------  | -------------  | 
-| 9/04/2021     |:smiley:       | :smiley:       | :smiley:       | :smiley:       | :smiley:       |
+| 09/04/2021    |:smiley:       | :smiley:       | :smiley:       | :smiley:       | :smiley:       |
 | 11/04/2021    |               | :neutral_face: |                |                |                |                
 | 14/04/2021    |     :smiley:  | :neutral_face: | :neutral_face: |:neutral_face:  |:neutral_face:  |                
 | 15/04/2021    |               |                |                | :neutral_face: | :neutral_face: |
