@@ -17,11 +17,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name="books")
 public class Book extends BaseEntity {
 	
+    @NotNull(message = "La fecha de inicio no puede estar vacía")
     @Column(name="start_date")
     @DateTimeFormat(pattern = "yyyy/MM/dd")
     @FutureOrPresent
 	private LocalDate startDate;
     
+    @NotNull(message = "La fecha de fin no puede estar vacía")
     @Column(name="end_date")
     @DateTimeFormat(pattern = "yyyy/MM/dd")
     @Future
