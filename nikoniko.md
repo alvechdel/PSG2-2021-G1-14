@@ -1,6 +1,6 @@
 # Niko Niko Calendar of team G1-14
 
-| Day           | José Luis     | Álvaro         | Ana            | Carlos         | Fernando     |
+| Day           | José Luis     | Álvaro         | Ana            | Carlos         | Fernando       |
 | ------------- | ------------- | -------------  | -------------  | -------------  | -------------  | 
 | 9/04/2021     |:smiley:       | :smiley:       | :smiley:       | :smiley:       | :smiley:       |
 | 11/04/2021    |               | :neutral_face: |                |                |                |                
@@ -13,4 +13,6 @@
 | 23/04/2021    |:neutral_face: | :neutral_face: | :neutral_face: | :neutral_face: | :worried:      | 
 | 27/04/2021    |               | :smiley:       | :neutral_face: |                |                |
 | 29/04/2021    |:worried:      | :smiley:       |                | :smiley:       | :smiley:       |
+| 30/04/2021    |:neutral_face: |                |                |                |                |
+| 01/05/2021    |:neutral_face: |                |                |                |                |
 ...
