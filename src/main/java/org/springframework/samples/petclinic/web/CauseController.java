@@ -32,7 +32,7 @@ public class CauseController {
 
 	private static final String VIEW_LIST_CAUSE="causes/causeList";
 
-	private static final String VIEW_CREATE_DONATION = "donations/createDonation";
+	private static final String VIEW_CREATE_DONATION = "donations/createDonation";	
 
 	private final CauseService causeService;
 

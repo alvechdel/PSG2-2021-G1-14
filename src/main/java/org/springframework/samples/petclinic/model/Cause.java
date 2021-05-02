@@ -40,12 +40,13 @@ public class Cause extends NamedEntity{
 	private Set<Donation> donations;
 
 	public BigDecimal getTotalAmount(){
-		BigDecimal res=BigDecimal.ZERO;
+        BigDecimal res=BigDecimal.ZERO;
         if(donations != null && donations.size()>0){
             res=donations.stream().map(x->x.getAmount().setScale(2, RoundingMode.HALF_DOWN)).reduce(BigDecimal.ZERO, BigDecimal::add);
         }
         return res;
 	}
+
 	public String getDescription() {
 		return description;
 	}

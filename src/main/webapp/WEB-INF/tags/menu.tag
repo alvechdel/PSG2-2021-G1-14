@@ -41,6 +41,12 @@
 				</petclinic:menuItem>
 
 
+				<petclinic:menuItem active="${name eq 'adoptions'}" url="/adoptions"
+					title="adoptions">
+					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+					<span>Adopciones</span>
+				</petclinic:menuItem>
+
 				<petclinic:menuItem active="${name eq 'causes'}" url="/causes"
 					title="Causas">
 					<span class="glyphicon glyphicon-tree-conifer" aria-hidden="true"></span>
@@ -48,7 +54,6 @@
 				</petclinic:menuItem>
 			</ul>
 			
-
 
 
 			<ul class="nav navbar-nav navbar-right">

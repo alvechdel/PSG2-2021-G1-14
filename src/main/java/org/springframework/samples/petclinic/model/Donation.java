@@ -24,7 +24,7 @@ public class Donation extends BaseEntity {
 	
 	@Digits(integer=6, fraction=2,message="Dos decimales como máximo")
     @Min(value=1, message="La donación mínima ha de ser 1 €")
-	@NotNull
+	@NotNull(message="Debe introducir una cantidad de dinero")
 	private BigDecimal amount;
 	
     @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
