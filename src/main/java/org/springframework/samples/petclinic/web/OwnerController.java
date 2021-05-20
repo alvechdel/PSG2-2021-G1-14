@@ -155,7 +155,6 @@ public class OwnerController {
 	public String deleteOwner(@PathVariable("ownerId") int ownerId){
 		Owner owner = this.ownerService.findOwnerById(ownerId);
 		owner.setUser(null); //Should I delete the user instead? I think so but all owners are using the same username at this point
-		owner.getRequest().clear();
 		this.ownerService.deleteOwner(owner);
 		return REDIRECT_OWNER;
 	}
