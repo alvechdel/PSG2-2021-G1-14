@@ -7,4 +7,4 @@
 | 12/05/2021    | :smiley:      |                |                | :smiley:       |                |
 | 13/05/2021    |  :smiley:     | :smiley:       |    :smiley:    | :smiley:       | :smiley:       |
 | 17/05/2021    | :neutral_face:| :neutral_face: | :neutral_face: | :neutral_face: | :neutral_face: |
-| 19/05/2021    |               | :smiley:       | :neutral_face: |                |                |
+| 19/05/2021    |               | :smiley:       | :neutral_face: |                | :neutral_face: |
