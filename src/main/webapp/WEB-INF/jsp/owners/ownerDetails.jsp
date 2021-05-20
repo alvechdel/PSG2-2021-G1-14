@@ -3,11 +3,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
-<<<<<<< HEAD
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-=======
 <%@ page contentType="text/html; charset=UTF-8" %>
->>>>>>> 8a82ab942abe82606f667bf5e0abdbd0b6088360
+
 
 <petclinic:layout pageName="owners">
 
