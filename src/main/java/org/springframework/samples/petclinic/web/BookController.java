@@ -23,12 +23,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class BookController {
     
     private final PetService petService;
-
-<<<<<<< HEAD
+  
     private final static String CREATE_UPDATE_BOOK = "pets/createOrUpdateBookForm";
-=======
-    private final static String CREATE_UPDATE_BOOK = "CREATE_UPDATE_BOOK";
->>>>>>> 8a82ab942abe82606f667bf5e0abdbd0b6088360
     
     @Autowired
     public BookController(PetService petService){
