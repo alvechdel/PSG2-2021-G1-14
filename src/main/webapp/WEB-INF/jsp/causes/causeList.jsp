@@ -29,10 +29,13 @@
         </tr>
         </thead>
         <tbody>
+        
         <c:forEach items="${causes}" var="cause">
                 <tr>
                     <td>
-                        <c:out value="${cause.name}"/>
+                    	
+                       <c:out value="${cause.name}"/>
+                       
                     </td>
                     <td>
                         <c:out value="${cause.totalAmount}"/>
@@ -46,35 +49,41 @@
                         <spring:url value="/causes/{causeId}" var="detailsCause">
                             <spring:param name="causeId" value="${cause.id}"/>
                         </spring:url>
+                        
                         <a class="btn btn-default"  href="${fn:escapeXml(detailsCause)}">Detalles</a>
                         <p>&nbsp;</p>
                         <c:if test="${cause.activeStatus eq true}">
-                            <sec:authorize access="hasAuthority('owner')">
+                   		
+                        
+                             <a class="btn btn-default"  href="${fn:escapeXml(donationUrl)}">Donar para esta causa</a>
                                 <spring:url value="/causes/{causeId}/newDonation" var="donationUrl">
                                     <spring:param name="causeId" value="${cause.id}"/>
                                 </spring:url>
                                 
-                                <a class="btn btn-default"  href="${fn:escapeXml(donationUrl)}">Donar para esta causa</a>
                                
-                               <spring:url value="/causes/{causeId}/delete" var="causeUrl">
-                                    <spring:param name="causeId" value="${cause.id}"/>
-                                </spring:url>
+                               
+                               <sec:authorize access="hasAuthority('admin')">
+	                               <spring:url value="/causes/{causeId}/delete" var="causeUrl">
+	                                    <spring:param name="causeId" value="${cause.id}"/>
+	                                </spring:url>
                                 
-                                <a class="btn btn-default"  href="${fn:escapeXml(causeUrl)}">Eliminar causa</a>
                                 
-                                <spring:url value="/causes/{causeId}/edit" var="causeUrl">
-                                    <spring:param name="causeId" value="${cause.id}"/>
-                                </spring:url>
-                                
-                                <a class="btn btn-default"  href="${fn:escapeXml(causeUrl)}">Editar causa</a>
-                                
-                            </sec:authorize>
+	                                <a class="btn btn-default"  href="${fn:escapeXml(causeUrl)}">Eliminar causa</a>
+	                                
+	                                <spring:url value="/causes/{causeId}/edit" var="causeUrl">
+	                                    <spring:param name="causeId" value="${cause.id}"/>
+	                                </spring:url>
+                               
+                                	<a class="btn btn-default"  href="${fn:escapeXml(causeUrl)}">Editar causa</a>
+                          		</sec:authorize>
                         </c:if>
-
+                       
                     </td>
                 </tr>
         </c:forEach>
+   
         </tbody>
+         
     </table>
     
     <spring:url value="/causes/new" var="newCause">
