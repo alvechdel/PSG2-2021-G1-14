@@ -8,4 +8,4 @@
 | 13/05/2021    |  :smiley:     | :smiley:       |    :smiley:    | :smiley:       | :smiley:       |
 | 17/05/2021    | :neutral_face:| :neutral_face: | :neutral_face: | :neutral_face: | :neutral_face: |
 | 19/05/2021    |:neutral_face: | :smiley:       | :neutral_face: |                | :neutral_face: |
-| 20/05/2021    |:neutral_face: | :smiley:       |  :neutral_face:|                |  :smiley:      |
+| 20/05/2021    |:neutral_face: | :neutral_face: | :neutral_face: |                |  :smiley:      |
