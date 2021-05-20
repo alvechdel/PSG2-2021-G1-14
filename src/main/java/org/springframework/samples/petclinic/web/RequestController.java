@@ -30,7 +30,9 @@ public class RequestController {
     private final PetService petService;
     private final UserService userService;
     private final OwnerService ownerService;
-
+    
+    private final static String ADOPTIONS_CREATE_UPDATE_FORM = "adoptions/createOrUpdateRequestForm";
+    
     @Autowired
     public RequestController(PetService petService,OwnerService ownerService,  UserService userService){
         this.petService=petService;
@@ -73,23 +75,23 @@ public class RequestController {
         owner.addRequest(request);
         pet.addRequest(request);
         model.put("request", request);
-        return "adoptions/createOrUpdateRequestForm";
+        return ADOPTIONS_CREATE_UPDATE_FORM;
     }
 
     @PostMapping(value="/adoptions/{petId}/new")
     public String processNewRequestForm(@Valid Request request, BindingResult result){
         if(result.hasErrors()) {
-            return "adoptions/createOrUpdateRequestForm";
+            return ADOPTIONS_CREATE_UPDATE_FORM;
         }else {
             try{
                 request.setDate(LocalDate.now());
                 petService.saveRequest(request);
             }catch (DuplicatedRequestException ex){
                 result.rejectValue("comment","Duplicated", "No puedes realizar dos solicitudes de adopcion de una misma mascota");
-                return "adoptions/createOrUpdateRequestForm";
+                return ADOPTIONS_CREATE_UPDATE_FORM;
             }catch (SameOwnerException ex1) {
                 result.rejectValue("comment", "SameOwner", "No puedes realizar una solicitud de adopcion a tu propia mascota");
-                return "adoptions/createOrUpdateRequestForm";
+                return ADOPTIONS_CREATE_UPDATE_FORM;
             }
             
             return "redirect:/adoptions";

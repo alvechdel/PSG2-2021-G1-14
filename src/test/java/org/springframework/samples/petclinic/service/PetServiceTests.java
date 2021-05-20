@@ -99,7 +99,7 @@ class PetServiceTests {
 
 	@Test
 	@Transactional
-	public void shouldInsertPetIntoDatabaseAndGenerateId() {
+	void shouldInsertPetIntoDatabaseAndGenerateId() {
 		Owner owner6 = this.ownerService.findOwnerById(6);
 		int found = owner6.getPets().size();
 
@@ -126,7 +126,7 @@ class PetServiceTests {
 	
 	@Test
 	@Transactional
-	public void shouldThrowExceptionInsertingPetsWithTheSameName() {
+	void shouldThrowExceptionInsertingPetsWithTheSameName() {
 		Owner owner6 = this.ownerService.findOwnerById(6);
 		Pet pet = new Pet();
 		pet.setName("wario");
@@ -153,7 +153,7 @@ class PetServiceTests {
 
 	@Test
 	@Transactional
-	public void shouldUpdatePetName() throws Exception {
+	void shouldUpdatePetName() throws Exception {
 		Pet pet7 = this.petService.findPetById(7);
 		String oldName = pet7.getName();
 
@@ -167,7 +167,7 @@ class PetServiceTests {
 	
 	@Test
 	@Transactional
-	public void shouldThrowExceptionUpdatingPetsWithTheSameName() {
+	void shouldThrowExceptionUpdatingPetsWithTheSameName() {
 		Owner owner6 = this.ownerService.findOwnerById(6);
 		Pet pet = new Pet();
 		pet.setName("wario");
@@ -198,7 +198,7 @@ class PetServiceTests {
 
 	@Test
 	@Transactional
-	public void shouldAddNewVisitForPet() {
+	void shouldAddNewVisitForPet() {
 		Pet pet7 = this.petService.findPetById(7);
 		int found = pet7.getVisits().size();
 		Visit visit = new Visit();
@@ -230,7 +230,7 @@ class PetServiceTests {
 	
 	@Test
 	@Transactional
-	public void shouldAddNewRequestForPet(){
+	void shouldAddNewRequestForPet(){
 		Owner owner6 = this.ownerService.findOwnerById(6);
 		Pet pet7 = this.petService.findPetById(7);
 		int found=pet7.getRequest().size();
@@ -259,7 +259,7 @@ class PetServiceTests {
 
 	@Test
 	@Transactional
-	public void shouldPutUpAdoption(){
+	void shouldPutUpAdoption(){
 		Pet pet7=this.petService.findPetById(7);
 		this.petService.putUpForAdoption(pet7);
 		pet7=this.petService.findPetById(7);
@@ -268,7 +268,7 @@ class PetServiceTests {
 
 	@Test
 	@Transactional
-	public void shouldPutDownAdoption(){
+	void shouldPutDownAdoption(){
 		Pet pet7=this.petService.findPetById(7);
 		this.petService.putDownForAdoption(pet7);
 		pet7=this.petService.findPetById(7);
@@ -276,7 +276,7 @@ class PetServiceTests {
 	}
 
 	@Test
-	public void shouldPetsWithAvailableAdoption(){
+	void shouldPetsWithAvailableAdoption(){
 		Collection<Pet> pets=this.petService.findAvalaibleAdoption();
 		assertThat(pets.size()).isEqualTo(3);
 		Pet[] petsArr = pets.toArray(new Pet[pets.size()]);

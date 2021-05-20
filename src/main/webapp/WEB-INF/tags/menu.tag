@@ -52,6 +52,12 @@
 					<span class="glyphicon glyphicon-tree-conifer" aria-hidden="true"></span>
 					<span>Causas</span>
 				</petclinic:menuItem>
+
+				<petclinic:menuItem active="${name eq 'health'}" url="/manage/health"
+					title="Salud">
+					<span class="	glyphicon glyphicon-heart" aria-hidden="true"></span>
+					<span>Salud</span>
+				</petclinic:menuItem>
 			</ul>
 			
 
