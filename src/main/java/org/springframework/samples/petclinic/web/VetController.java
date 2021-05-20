@@ -20,6 +20,7 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Specialty;
 import org.springframework.samples.petclinic.model.Vet;
@@ -131,7 +132,13 @@ public class VetController {
 		}
 		else {
 			vet.setId(vetId);
-			this.vetService.saveVet(vet);
+			if(vet.getSpecialties().isEmpty()){
+				Vet vetToUpdate=vetService.findVetById(vetId);
+				BeanUtils.copyProperties(vet, vetToUpdate, "id","firstName","lastName");
+				this.vetService.saveVet(vetToUpdate);
+			}else{
+				this.vetService.saveVet(vet);
+			}
 			return "redirect:/vets/{vetId}";
 		}
 	}
