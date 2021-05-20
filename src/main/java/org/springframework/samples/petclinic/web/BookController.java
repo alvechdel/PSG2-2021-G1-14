@@ -24,6 +24,8 @@ public class BookController {
     
     private final PetService petService;
 
+    private final static String CREATE_UPDATE_BOOK = "pets/createOrUpdateBookForm";
+    
     @Autowired
     public BookController(PetService petService){
         this.petService=petService;
@@ -44,22 +46,22 @@ public class BookController {
 
     @GetMapping(value="/owners/*/pets/{petId}/books/new")
     public String initNewBookForm(@PathVariable("petId") int petId, Map<String, Object> model) {
-        return "pets/createOrUpdateBookForm";
+        return CREATE_UPDATE_BOOK;
     }
 
     @PostMapping(value="/owners/{ownerId}/pets/{petId}/books/new")
     public String processNewVisitForm(@Valid Book book, BindingResult result) {
         if(result.hasErrors()) {
-            return "pets/createOrUpdateBookForm";
+            return CREATE_UPDATE_BOOK;
         }else {
             try{
                 petService.saveBook(book);
             }catch(OverlappingDatesException ex ){
                 result.rejectValue("endDate","overlap", "Es anterior a la fecha de inicio");
-                return "pets/createOrUpdateBookForm";
+                return CREATE_UPDATE_BOOK;
             }catch(OverlappingBooksException ex1){
                 result.rejectValue("startDate","overlap", "Esta mascota ya tiene una reserva para estas fechas");
-                return "pets/createOrUpdateBookForm";
+                return CREATE_UPDATE_BOOK;
             }
 
             

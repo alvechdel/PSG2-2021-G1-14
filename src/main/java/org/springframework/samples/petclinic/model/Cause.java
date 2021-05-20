@@ -41,7 +41,7 @@ public class Cause extends NamedEntity{
 
 	public BigDecimal getTotalAmount(){
         BigDecimal res=BigDecimal.ZERO;
-        if(donations != null && donations.size()>0){
+        if(donations!= null && !donations.isEmpty()){
             res=donations.stream().map(x->x.getAmount().setScale(2, RoundingMode.HALF_DOWN)).reduce(BigDecimal.ZERO, BigDecimal::add);
         }
         return res;
