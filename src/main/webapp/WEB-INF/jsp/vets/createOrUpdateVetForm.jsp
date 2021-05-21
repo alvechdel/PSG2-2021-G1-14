@@ -20,7 +20,14 @@
                 <div class="col-sm-10">
                     <select class="form-control"  name="specialties" size="${specialties.size()}" multiple>
                         <c:forEach items="${specialties}" var="specialty">
-                            <option value="${specialty.id}"><c:out value="${specialty}"></c:out></option>
+                            <c:choose>
+                                <c:when test="${vet.specialties.contains(specialty)}">
+                                    <option value="${specialty.id}" selected><c:out value="${specialty}"></c:out></option>
+                                </c:when>
+                                <c:otherwise>
+                                    <option value="${specialty.id}"><c:out value="${specialty}"></c:out></option>
+                                </c:otherwise>
+                            </c:choose>
                         </c:forEach>
                     </select>
                 </div>  
