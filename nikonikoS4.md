@@ -10,5 +10,5 @@
 | 19/05/2021    |:neutral_face: | :smiley:       | :neutral_face: |                | :neutral_face: |
 | 20/05/2021    |:neutral_face: | :neutral_face: | :neutral_face: |                |  :smiley:      |
 | 21/05/2021    |:neutral_face: | :neutral_face: | :neutral_face: | :neutral_face: |  :neutral_face:|
-| 26/05/2021    |:neutral_face: | :neutral_face: | :neutral_face: | :neutral_face: | :neutral_face: |
-| 27/05/2021    |               |                |      😟       |                |                |
+| 26/05/2021    |:neutral_face: | :neutral_face: | :neutral_face: | :neutral_face: |  :worried:     |
+| 27/05/2021    |               |                |     :worried:  |                | :neutral_face: |
