@@ -2,7 +2,7 @@
 
 
 <img src="/resources/images/footer.png" class="footerLogo">
-<nav class = "navbar navbar-default navbar-fixed-bottom">
+<nav class = "navbar navbar-default navbar-fixed-bottom" style = "background-color: #eaccad">
 </nav>
 
 <%-- Placed at the end of the document so the pages load faster --%>
