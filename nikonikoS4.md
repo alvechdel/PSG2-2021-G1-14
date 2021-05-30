@@ -8,9 +8,9 @@
 | 13/05/2021    |  :smiley:     | :smiley:       |    :smiley:    | :smiley:       | :smiley:       |
 | 17/05/2021    | :neutral_face:| :neutral_face: | :neutral_face: | :neutral_face: | :neutral_face: |
 | 19/05/2021    |:neutral_face: | :smiley:       | :neutral_face: |                | :neutral_face: |
-| 20/05/2021    |:neutral_face: | :neutral_face: | :neutral_face: |                |  :smiley:      |
+| 20/05/2021    |:neutral_face: | :neutral_face: | :neutral_face: | :neutral_face: |  :smiley:      |
 | 21/05/2021    |:neutral_face: | :neutral_face: | :neutral_face: | :neutral_face: |  :neutral_face:|
 | 26/05/2021    |:neutral_face: | :neutral_face: | :neutral_face: | :neutral_face: |  :worried:     |
 | 27/05/2021    |  :worried:    |                |     :worried:  | :neutral_face: | :neutral_face: |
-| 29/05/2021    |  😐  |                |      |  | |
-| 30/05/2021    |  😐  |                |      |  | |
+| 29/05/2021    |  😐  |                |      | :smiley:  | |
+| 30/05/2021    |  😐  |                |      | :neutral_face: | |
