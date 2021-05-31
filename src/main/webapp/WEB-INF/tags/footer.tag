@@ -1,10 +1,5 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-
-<img src="/resources/images/footer.png" class="footerLogo">
-<nav class = "navbar navbar-default navbar-fixed-bottom" style = "background-color: #eaccad">
-</nav>
-
 <%-- Placed at the end of the document so the pages load faster --%>
 <spring:url value="/webjars/jquery/2.2.4/jquery.min.js" var="jQuery"/>
 <script src="${jQuery}"></script>
@@ -16,3 +11,5 @@
 <%-- Bootstrap --%>
 <spring:url value="/webjars/bootstrap/3.3.6/js/bootstrap.min.js" var="bootstrapJs"/>
 <script src="${bootstrapJs}"></script>
+
+

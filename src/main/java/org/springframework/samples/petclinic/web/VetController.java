@@ -16,14 +16,10 @@
 package org.springframework.samples.petclinic.web;
 
 import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Specialty;
 import org.springframework.samples.petclinic.model.Vet;
@@ -32,7 +28,6 @@ import org.springframework.samples.petclinic.service.SpecialtyService;
 import org.springframework.samples.petclinic.service.VetService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -130,21 +125,13 @@ public class VetController {
 	
 	@PostMapping(value = "/vets/{vetId}/edit")
 	public String processUpdateVetForm(@Valid Vet vet, BindingResult result,
-			@PathVariable("vetId") int vetId, ModelMap model) {
+			@PathVariable("vetId") int vetId) {
 		if (result.hasErrors()) {
-			Collection<Specialty> specialties = specialtyService.findSpecialties();
-			model.addAttribute("specialties", specialties);
 			return VIEWS_VET_CREATE_OR_UPDATE_FORM;
 		}
 		else {
 			vet.setId(vetId);
-			if(vet.getSpecialties().isEmpty()){
-				Vet vetToUpdate=vetService.findVetById(vetId);
-				BeanUtils.copyProperties(vet, vetToUpdate, "id","firstName","lastName");
-				this.vetService.saveVet(vetToUpdate);
-			}else{
-				this.vetService.saveVet(vet);
-			}
+			this.vetService.saveVet(vet);
 			return "redirect:/vets/{vetId}";
 		}
 	}
