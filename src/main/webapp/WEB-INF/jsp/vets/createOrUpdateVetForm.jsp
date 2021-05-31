@@ -5,7 +5,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
-<%@ page contentType="text/html; charset=UTF-8" %>
 
 <petclinic:layout pageName="vet">
     <h2>
@@ -20,14 +19,7 @@
                 <div class="col-sm-10">
                     <select class="form-control"  name="specialties" size="${specialties.size()}" multiple>
                         <c:forEach items="${specialties}" var="specialty">
-                            <c:choose>
-                                <c:when test="${vet.specialties.contains(specialty)}">
-                                    <option value="${specialty.id}" selected><c:out value="${specialty}"></c:out></option>
-                                </c:when>
-                                <c:otherwise>
-                                    <option value="${specialty.id}"><c:out value="${specialty}"></c:out></option>
-                                </c:otherwise>
-                            </c:choose>
+                            <option value="${specialty.id}"><c:out value="${specialty}"></c:out></option>
                         </c:forEach>
                     </select>
                 </div>  

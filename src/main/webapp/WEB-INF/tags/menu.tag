@@ -7,7 +7,7 @@
 <%@ attribute name="name" required="true" rtexprvalue="true"
 	description="Name of the active menu: home, owners, vets, error or causes"%>
 
-<nav class="navbar navbar-default" role="navigation" style = "background-color: #eaccad">
+<nav class="navbar navbar-default" role="navigation">
 	<div class="container">
 		<div class="navbar-header">
 			<a class="navbar-brand"
@@ -24,39 +24,33 @@
 
 				<petclinic:menuItem active="${name eq 'home'}" url="/"
 					title="home page">
-					<span class="glyphicon glyphicon-home" aria-hidden="true" style= "color: black"></span>
-					<span style= "color: black">Inicio</span>
+					<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+					<span>Inicio</span>
 				</petclinic:menuItem>
 				
 				<petclinic:menuItem active="${name eq 'owners'}" url="/owners/find"
 					title="find owners">
-					<span class="glyphicon glyphicon-search" aria-hidden="true" style= "color: black"></span>
-					<span style= "color: black" >Buscar propietarios</span>
+					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+					<span>Buscar propietarios</span>
 				</petclinic:menuItem>
 
 				<petclinic:menuItem active="${name eq 'vets'}" url="/vets"
 					title="veterinarians">
-					<span class="glyphicon glyphicon-th-list" aria-hidden="true" style= "color: black"></span>
-					<span style= "color: black">Veterinarios</span>
+					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+					<span>Veterinarios</span>
 				</petclinic:menuItem>
 
 
 				<petclinic:menuItem active="${name eq 'adoptions'}" url="/adoptions"
 					title="adoptions">
-					<span class="glyphicon glyphicon-th-list" aria-hidden="true" style= "color: black"></span>
-					<span style= "color: black">Adopciones</span>
+					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+					<span>Adopciones</span>
 				</petclinic:menuItem>
 
 				<petclinic:menuItem active="${name eq 'causes'}" url="/causes"
 					title="Causas">
-					<span class="glyphicon glyphicon-tree-conifer" aria-hidden="true" style= "color: black"></span>
-					<span style= "color: black">Causas</span>
-				</petclinic:menuItem>
-
-				<petclinic:menuItem active="${name eq 'health'}" url="/manage/health"
-					title="Salud">
-					<span class="	glyphicon glyphicon-heart" aria-hidden="true" style= "color: black"></span>
-					<span style= "color: black">Salud</span>
+					<span class="glyphicon glyphicon-tree-conifer" aria-hidden="true"></span>
+					<span>Causas</span>
 				</petclinic:menuItem>
 			</ul>
 			
@@ -64,14 +58,14 @@
 
 			<ul class="nav navbar-nav navbar-right">
 				<sec:authorize access="!isAuthenticated()">
-					<li><a href="<c:url value="/login" />" style= "color: black">Iniciar sesi&Oacuten</a></li>
-					<li><a href="<c:url value="/users/new" />" style= "color: black">Registrarse</a></li>
+					<li><a href="<c:url value="/login" />">Iniciar sesi&Oacuten</a></li>
+					<li><a href="<c:url value="/users/new" />">Registrarse</a></li>
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown"> <span class="glyphicon glyphicon-user" style= "color: black"></span>
+						data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span>
 							<strong><sec:authentication property="name" /></strong> <span
-							class="glyphicon glyphicon-chevron-down" style= "color: black"></span>
+							class="glyphicon glyphicon-chevron-down"></span>
 					</a>
 						<ul class="dropdown-menu">
 							<li>
@@ -79,16 +73,16 @@
 									<div class="row">
 										<div class="col-lg-4">
 											<p class="text-center">
-												<span class="glyphicon glyphicon-user icon-size" style="font-size: 50px; color:black"></span>
+												<span class="glyphicon glyphicon-user icon-size" style="font-size: 50px;"></span>
 											</p>
 										</div>
 										<div class="col-lg-8">
 											<p class="text-left">
-												<strong ><sec:authentication property="name" /></strong>
+												<strong><sec:authentication property="name" /></strong>
 											</p>
 											<p class="text-left">
 												<a href="<c:url value="/logout" />"
-													class="btn btn-primary btn-block btn-sm" style= "color: black">Cerrar sesi&oacuten</a>
+													class="btn btn-primary btn-block btn-sm">Cerrar sesi&oacuten</a>
 											</p>
 										</div>
 									</div>
