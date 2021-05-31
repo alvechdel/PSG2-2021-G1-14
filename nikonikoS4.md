@@ -15,4 +15,4 @@
 | 27/05/2021    |  :worried:    |                |     :worried:  | :neutral_face: | :neutral_face: |
 | 29/05/2021    |:neutral_face: | :neutral_face: |                | :smiley:       |                |
 | 30/05/2021    |:neutral_face: | :neutral_face: |                | :neutral_face: |  :neutral_face:|
-| 21/05/2021    |               |                |                |                |    :smiley:    |
+| 31/05/2021    |               |                |                | :neutral_face: |    :smiley:    |
